@@ -4,77 +4,109 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style.css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css"
+        />
+        <!-- <link rel="stylesheet" href="style.css" /> -->
         <title>Quantum Overdrive</title>
     </head>
-    <body>
+    <body
+        class="flex flex-col items-center justify-center bg-neutral-800 text-neutral-200"
+    >
         <!-- Navigation bar -->
-        <nav>
-            <ul>
-                <li><a href="#updates">Updates</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#Play">Play</a></li>
+        <nav class="fixed top-0 w-full bg-neutral-900">
+            <ul class="flex flex-row items-center justify-around">
+                <li class="text-2xl p-3 text-amber-100 hover:text-amber-300">
+                    <a href="#updates">Updates</a>
+                </li>
+                <li class="text-2xl p-3 text-amber-100 hover:text-amber-300">
+                    <a href="#about">About</a>
+                </li>
+                <li class="text-2xl p-3 text-amber-100 hover:text-amber-300">
+                    <a href="#play">Play</a>
+                </li>
             </ul>
         </nav>
-        <div class="container">
+        <div class="w-11/12 sm:w-4/5 xl:w-1/2">
             <!-- Title -->
-            <h1>Quantum Overdrive</h1>
-            <h3><i>&ltQuantum Dev&gt</i></h3>
+            <div class="h-screen flex flex-col justify-center">
+                <h1 class="text-4xl my-4 text-amber-300">Quantum Overdrive</h1>
+                <h2 class="text-2xl text-amber-100">
+                    <i>&ltQuantum Dev&gt</i>
+                </h2>
+            </div>
 
             <!-- Updates -->
-            <section class="updates">
-                <a name="updates"></a>
-                <h2>Updates:</h2>
-                <div class="update__post">
-                    <h3>Started work on Quantum Overdrive!</h3>
+            <a name="updates"></a>
+            <section class="py-40">
+                <h2 class="text-amber-300 text-3xl my-10">Updates:</h2>
+                <div>
+                    <h3 class="text-amber-100 text-2xl my-2">
+                        Started work on Quantum Overdrive!
+                    </h3>
+                    <h4 class="text-sm my-2">2/21/22</h4>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing
-                        elit. Quidem distinctio corporis neque non facere
-                        explicabo illo doloribus. Iure, veniam natus. Aperiam
-                        iste suscipit veritatis mollitia alias repudiandae
-                        sapiente maiores sed.
+                        <i>Quantum Dev</i> is excited to announce that we have
+                        started work on a new, sci-fi/dystopian rogue-like.
+                        <br />
+                        Concept art coming soon!
                     </p>
                 </div>
             </section>
 
             <!-- About us -->
-            <section class="about">
-                <a name="about"></a>
-                <h2>About the team:</h2>
-                <div class="about__bio">
-                    <h3>Zeke Abshire <i>&ltSoftware Programmer&gt</i></h3>
+            <a name="about"></a>
+            <section class="py-40">
+                <h2 class="text-amber-300 text-3xl my-10">About the team:</h2>
+                <div class="my-10 mx-12">
+                    <h3 class="text-amber-100 text-2xl my-6">
+                        Zeke Abshire -
+                        <i>&ltSoftware Programmer & Sound Design&gt</i>
+                    </h3>
+                    <p>CS & Math senior</p>
+                </div>
+                <div class="my-10 mx-12">
+                    <h3 class="text-amber-100 text-2xl my-6">
+                        Chris Chuan - <i>&ltSoftware Programmer&gt</i>
+                    </h3>
                     <p>
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Libero laudantium incidunt assumenda reprehenderit
                         velit saepe tenetur molestias doloribus.
                     </p>
                 </div>
-                <div class="about__bio">
-                    <h3>Chris Chuan - &ltSoftware Programmer&gt</h3>
+                <div class="my-10 mx-12">
+                    <h3 class="text-amber-100 text-2xl my-6">
+                        Mariah Graham -
+                        <i> &ltUI Designer & Graphic Designer/Artist&gt </i>
+                    </h3>
                     <p>
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Libero laudantium incidunt assumenda reprehenderit
                         velit saepe tenetur molestias doloribus.
                     </p>
                 </div>
-                <div class="about__bio">
-                    <h3>Mariah Graham - &ltUI Designer & Graphic Designer/Artist&gt</h3>
+                <div class="my-10 mx-12">
+                    <h3 class="text-amber-100 text-2xl my-6">
+                        Otis Jackson IV -
+                        <i
+                            >&ltGraphic Designer/Artist & Software
+                            Programmer&gt</i
+                        >
+                    </h3>
                     <p>
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Libero laudantium incidunt assumenda reprehenderit
                         velit saepe tenetur molestias doloribus.
                     </p>
                 </div>
-                <div class="about__bio">
-                    <h3>Otis Jackson IV - &ltGraphic Designer/Artist & Software Programmer&gt</h3>
-                    <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Libero laudantium incidunt assumenda reprehenderit
-                        velit saepe tenetur molestias doloribus.
-                    </p>
-                </div>
-                <div class="about__bio">
-                    <h3>Justin Nguyen - &ltTeam Lead & Graphic Designer/Artist&gt</h3>
+                <div class="my-10 mx-12">
+                    <h3 class="text-amber-100 text-2xl my-6">
+                        Justin Nguyen -
+                        <i> &ltTeam Lead & Graphic Designer/Artist&gt </i>
+                    </h3>
                     <p>
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Libero laudantium incidunt assumenda reprehenderit
@@ -84,11 +116,13 @@
             </section>
 
             <!-- Play -->
-            <section class="play">
-                <a name="play"></a>
-                <h2>Play our game:</h2>
-                <a href="#">Steam</a>
-                <a href="#">itch.io</a>
+            <a name="play"></a>
+            <section class="py-40">
+                <h2 class="text-amber-300 text-3xl my-10">Play our game:</h2>
+                <ul>
+                    <li><a href="#">Steam</a></li>
+                    <li><a href="#">itch.io</a></li>
+                </ul>
             </section>
         </div>
     </body>

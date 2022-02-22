@@ -73,3 +73,7 @@ crashlytics-build.properties
 
 # Temporary 
 Assets/URP-Presets
+node_modules
+package.json
+package-lock.json
+tailwind.config.js
