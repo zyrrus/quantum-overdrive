@@ -6,16 +6,15 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     // Components
-    private Rigidbody rb;
+    private Rigidbody2D rb;
     private PlayerStats stats;
 
     // Movement
-    private float facing = 0;
-    private float modelFacing = 1;
+    private float inputDir;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         stats = GetComponent<PlayerStats>();
     }
 
@@ -24,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         // ...
         Movement();
@@ -32,17 +31,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Movement()
     {
-        if (facing * modelFacing < 0)
-        {
-            Debug.Log("flip");
-        }
-
-        rb.AddForce(new Vector3(facing * stats.moveSpeed * Time.deltaTime, 0, 0));
+        rb.AddForce(transform.right * inputDir * stats.moveSpeed, ForceMode2D.Force);
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        facing = context.ReadValue<float>();
+        inputDir = context.ReadValue<float>();
     }
 
     public void OnJump() { }
