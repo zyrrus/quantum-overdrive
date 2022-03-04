@@ -7,14 +7,17 @@ public class PlayerMovement : MonoBehaviour
 {
     // Components
     private Rigidbody2D rb;
+    private PlayerInput input;
     private PlayerStats stats;
 
-    // Movement
-    private float inputDir;
+    // Physics
+    private float curVelocity;
+    private float curAcceleration;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        input = GetComponent<PlayerInput>();
         stats = GetComponent<PlayerStats>();
     }
 
@@ -25,19 +28,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // ...
+        Jump();
         Movement();
     }
 
     private void Movement()
     {
-        rb.AddForce(transform.right * inputDir * stats.moveSpeed, ForceMode2D.Force);
+        rb.AddForce(transform.right * input.inputDir * stats.moveSpeed, ForceMode2D.Force);
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    private void Jump()
     {
-        inputDir = context.ReadValue<float>();
+        if (input.GetPressedJump())
+            rb.AddForce(transform.up * stats.jumpStrength, ForceMode2D.Impulse);
     }
-
-    public void OnJump() { }
 }
