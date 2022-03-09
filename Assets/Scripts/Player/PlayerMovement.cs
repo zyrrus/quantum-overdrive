@@ -31,8 +31,6 @@ public class PlayerMovement : MonoBehaviour
     private Timer jumpCoyoteTimer;
 
 
-
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -56,8 +54,7 @@ public class PlayerMovement : MonoBehaviour
             isJumping = false;
         };
 
-
-
+        // Perform actions
         Run();
         Jump();
     }
@@ -99,8 +96,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
-        // if (!context.performed) return;
-
         if (inputTarget.x != 0) lastTarget.x = inputTarget.x;
         if (inputTarget.y != 0) lastTarget.y = inputTarget.y;
 
