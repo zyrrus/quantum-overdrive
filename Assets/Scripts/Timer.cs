@@ -15,6 +15,11 @@ public class Timer
         currentTime = duration;
     }
 
-    public void Tick() => currentTime -= Time.deltaTime;
     public void Reset() => currentTime = timerLength;
+    public void Tick() { if (currentTime > 0) currentTime -= Time.deltaTime; }
+
+    public override string ToString()
+    {
+        return currentTime + "/" + timerLength;
+    }
 }
