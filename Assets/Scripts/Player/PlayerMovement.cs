@@ -82,7 +82,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (CanJump())
         {
-            rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
+            float force = jumpStrength - rb.velocity.y;
+            rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
             jumpQueued = false;
             isJumping = true;
         }
@@ -95,17 +96,14 @@ public class PlayerMovement : MonoBehaviour
 
         pressedJump = inputTarget.y >= diagonalInput;
 
-        Debug.Log(isGrounded);
-        return false;
-        // if (isGrounded)
-        // {
-        //     jumpCoyoteTimer.Reset();
-        //     if (pressedJump || jumpQueued)
-        //     {
-        //         Debug.Log($"Normal jump or Queued fullfilled");
-        //         return true;
-        //     }
-        // }
+        Debug.Log(isGrounded + " " + pressedJump);
+        if (isGrounded)
+        {
+            if (pressedJump || jumpQueued)
+            {
+                return true;
+            }
+        }
         // else if (pressedJump)
         // {
         //     if (wasGrounded)
@@ -122,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
         //     }
         // }
 
-        // return false;
+        return false;
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)
