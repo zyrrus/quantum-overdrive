@@ -26,12 +26,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Jump")]
     [SerializeField] private float jumpStrength;
     [SerializeField] private float jumpCoyoteTime;
-    [SerializeField] private float queuedJumpTime;
-    private bool pressedJump;
-    private bool jumpQueued = false;
+    private bool pressedJump = false;
     private bool isJumping;
     private Timer jumpCoyoteTimer;
-    private Timer queuedJumpTimer;
 
 
 
@@ -44,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         jumpCoyoteTimer = new Timer(jumpCoyoteTime);
-        queuedJumpTimer = new Timer(queuedJumpTime);
     }
 
     private void Update()
@@ -53,14 +49,13 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = groundFlag.IsTriggered();
 
         jumpCoyoteTimer.Tick();
-        queuedJumpTimer.Tick();
 
         if (isGrounded)
         {
             jumpCoyoteTimer.Reset();
             isJumping = false;
-            jumpQueued = false;
         };
+
 
 
         Run();
@@ -84,7 +79,6 @@ public class PlayerMovement : MonoBehaviour
         {
             float force = jumpStrength - rb.velocity.y;
             rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
-            jumpQueued = false;
             isJumping = true;
         }
 
@@ -92,33 +86,13 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CanJump()
     {
+        if (!pressedJump) return false;
+
         bool wasGrounded = !jumpCoyoteTimer.isOver;
 
-        pressedJump = inputTarget.y >= diagonalInput;
-
-        Debug.Log(isGrounded + " " + pressedJump);
-        if (isGrounded)
-        {
-            if (pressedJump || jumpQueued)
-            {
-                return true;
-            }
-        }
-        // else if (pressedJump)
-        // {
-        //     if (wasGrounded)
-        //     {
-        //         // Debug.Log($"Not Grounded. Pressed, was grounded and didn't just jump");
-        //         return true;
-        //     }
-        //     else if (!jumpQueued)
-        //     {
-        //         Debug.Log($"Queued up a jump");
-        //         queuedJumpTimer.Reset();
-        //         jumpQueued = true;
-        //         return false;
-        //     }
-        // }
+        if (isGrounded) return true;
+        else if (!isJumping && wasGrounded)
+            return true;
 
         return false;
     }
@@ -133,6 +107,14 @@ public class PlayerMovement : MonoBehaviour
         inputTarget = context.ReadValue<Vector2>();
 
         if (IsFacingWrongWay()) FlipCharacter();
+    }
+
+    public void OnJumpInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            pressedJump = true;
+        else if (context.canceled)
+            pressedJump = false;
     }
 
     private bool IsFacingWrongWay() => lastTarget.x * inputTarget.x < 0;

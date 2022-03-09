@@ -7,12 +7,12 @@ public class Timer
     private float timerLength = 0;
     private float currentTime = 0;
 
-    public bool isOver { get => currentTime <= 0 && currentTime < timerLength; }
+    public bool isOver { get => currentTime <= 0; }
 
     public Timer(float duration)
     {
         timerLength = duration;
-        currentTime = duration;
+        currentTime = 0;
     }
 
     public void Reset() => currentTime = timerLength;
