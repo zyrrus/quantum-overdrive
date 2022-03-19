@@ -9,10 +9,12 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private GameObject playerModel;
     [SerializeField] private Flag groundFlag;
+    [SerializeField] private float rotationDuration = 0.1f;
 
     private Vector2 inputTarget;
     private Vector2 lastTarget = new Vector2(1, 0);
     private bool isGrounded;
+    private bool isFacingRight = true;
 
     [Header("Move")]
     [SerializeField] private float maxSpeed;
@@ -144,7 +146,32 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private bool IsFacingWrongWay() => lastTarget.x * inputTarget.x < 0;
-    private void FlipCharacter() => playerModel.transform.Rotate(new Vector3(0, 180, 0));
+    private void FlipCharacter()
+    {
+        isFacingRight = !isFacingRight;
+        StartCoroutine(FlipCharLerp());
+    }
+
+    private IEnumerator FlipCharLerp()
+    {
+        int facingSign = (isFacingRight) ? 1 : -1;
+
+        Quaternion endGoal = Quaternion.LookRotation(Vector3.forward * facingSign, Vector3.up);
+
+        float timeElapsed = 0;
+        while (timeElapsed < rotationDuration)
+        {
+            Vector3 direction = Vector3.Slerp(Vector3.forward, -Vector3.forward, timeElapsed / rotationDuration);
+            Quaternion rotation = Quaternion.LookRotation(direction * -facingSign, Vector3.up);
+
+            playerModel.transform.rotation = rotation;
+            timeElapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        playerModel.transform.rotation = endGoal;
+    }
 
     private void OnDrawGizmos()
     {
