@@ -7,17 +7,27 @@ public class PlayerCore : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Flag groundFlag;
+    [SerializeField] private Flag upperWallFlag;
+    [SerializeField] private Flag lowerWallFlag;
     [SerializeField] private float rotationDuration = 0.1f;
 
     public Vector2 inputTarget { get; private set; }
     private Vector2 lastTarget = new Vector2(1, 0);
+    public bool isFacingRight { get; private set; }
     public bool isGrounded { get; private set; }
-    private bool isFacingRight = true;
+    public bool isHittingLowerWall { get; private set; }
+    public bool isHittingUpperWall { get; private set; }
 
+    private void Start()
+    {
+        isFacingRight = true;
+    }
 
     private void Update()
     {
         isGrounded = groundFlag.IsTriggered();
+        isHittingUpperWall = upperWallFlag.IsTriggered();
+        isHittingLowerWall = lowerWallFlag.IsTriggered();
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)
