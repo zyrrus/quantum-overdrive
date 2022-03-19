@@ -544,3 +544,4 @@ MonoBehaviour:
   velPower: 0.9
   jumpStrength: 30
   jumpCoyoteTime: 0.5
+  frictionStrength: 2.49

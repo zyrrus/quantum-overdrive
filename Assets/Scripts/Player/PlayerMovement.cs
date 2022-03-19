@@ -5,9 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Constants
-    private readonly float diagonalInput = Mathf.Sqrt(2) / 2;
-
     [Header("References")]
     private Rigidbody2D rb;
     [SerializeField] private GameObject playerModel;
@@ -26,9 +23,19 @@ public class PlayerMovement : MonoBehaviour
     [Header("Jump")]
     [SerializeField] private float jumpStrength;
     [SerializeField] private float jumpCoyoteTime;
-    private bool pressedJump = false;
+    [SerializeField, Range(0, 1)] private float jumpCutPercentage;
     private bool isJumping;
     private Timer jumpCoyoteTimer;
+
+    [Header("Gravity")]
+    [SerializeField] private float maxFallSpeed;
+    [SerializeField] private float fallingGravityStrength;
+    private float originalGravityScale;
+
+
+    [Header("Stopping Friction")]
+    [SerializeField, Range(0, 1)] private float frictionStrength;
+
 
 
     private void Awake()
@@ -39,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         jumpCoyoteTimer = new Timer(jumpCoyoteTime);
+        originalGravityScale = rb.gravityScale;
     }
 
     private void Update()
@@ -51,12 +59,12 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             jumpCoyoteTimer.Reset();
-            isJumping = false;
-        };
+        }
 
         // Perform actions
         Run();
-        Jump();
+        StoppingFriction();
+        FallGravity();
     }
 
     private void Run()
@@ -72,26 +80,49 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (CanJump())
+        bool canJump = isGrounded || (!jumpCoyoteTimer.isOver && !isJumping);
+
+        if (canJump)
         {
+            isJumping = true;
             float force = jumpStrength - rb.velocity.y;
             rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
-            isJumping = true;
         }
-
     }
 
-    private bool CanJump()
+    private void JumpCut()
     {
-        if (!pressedJump) return false;
+        if (rb.velocity.y > 0 && isJumping)
+            rb.AddForce(Vector2.down * rb.velocity.y * (1 - jumpCutPercentage), ForceMode2D.Impulse);
 
-        bool wasGrounded = !jumpCoyoteTimer.isOver;
+        isJumping = false;
+    }
 
-        if (isGrounded) return true;
-        else if (!isJumping && wasGrounded)
-            return true;
+    private void FallGravity()
+    {
+        if (rb.velocity.y > 0) rb.gravityScale = originalGravityScale;
+        else
+        {
+            rb.gravityScale = originalGravityScale * fallingGravityStrength;
 
-        return false;
+            // If falling faster than max fall speed, fix the fall speed
+            if (Mathf.Abs(rb.velocity.y) > maxFallSpeed)
+            {
+                Vector2 vel = rb.velocity;
+                vel.y = -maxFallSpeed;
+                rb.velocity = vel;
+            }
+        }
+    }
+
+    private void StoppingFriction()
+    {
+        if (isGrounded && Mathf.Abs(inputTarget.x) < 0.01f)
+        {
+            float friction = Mathf.Min(Mathf.Abs(rb.velocity.x), frictionStrength);
+            friction *= Mathf.Sign(rb.velocity.x);
+            rb.AddForce(Vector2.left * friction, ForceMode2D.Impulse);
+        }
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)
@@ -107,9 +138,9 @@ public class PlayerMovement : MonoBehaviour
     public void OnJumpInput(InputAction.CallbackContext context)
     {
         if (context.started)
-            pressedJump = true;
+            Jump();
         else if (context.canceled)
-            pressedJump = false;
+            JumpCut();
     }
 
     private bool IsFacingWrongWay() => lastTarget.x * inputTarget.x < 0;
