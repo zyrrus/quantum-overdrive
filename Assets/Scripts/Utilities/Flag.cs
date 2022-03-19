@@ -13,7 +13,7 @@ public class Flag : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
+        Gizmos.color = IsTriggered() ? Color.red : Color.green;
         Gizmos.DrawSphere(transform.position, 0.1f);
     }
 }

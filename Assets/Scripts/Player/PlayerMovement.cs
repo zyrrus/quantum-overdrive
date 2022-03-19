@@ -164,13 +164,13 @@ public class PlayerMovement : MonoBehaviour
             Vector3 direction = Vector3.Slerp(Vector3.forward, -Vector3.forward, timeElapsed / rotationDuration);
             Quaternion rotation = Quaternion.LookRotation(direction * -facingSign, Vector3.up);
 
-            playerModel.transform.rotation = rotation;
+            transform.rotation = rotation;
             timeElapsed += Time.deltaTime;
 
             yield return null;
         }
 
-        playerModel.transform.rotation = endGoal;
+        transform.rotation = endGoal;
     }
 
     private void OnDrawGizmos()
@@ -178,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
         float rad = 2;
         Vector2 root = transform.position;
 
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.grey;
         Gizmos.DrawSphere(root + (inputTarget * rad), 0.1f);
     }
 }
