@@ -441,6 +441,9 @@ GameObject:
   - component: {fileID: 2664505374496777549}
   - component: {fileID: 2664505374496777546}
   - component: {fileID: 2664505374496777545}
+  - component: {fileID: 987582552}
+  - component: {fileID: 987582553}
+  - component: {fileID: 987582554}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -585,8 +588,8 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2664505374496777545}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 987582554}
+        m_TargetAssemblyTypeName: Jump, Assembly-CSharp
         m_MethodName: OnJumpInput
         m_Mode: 0
         m_Arguments:
@@ -632,16 +635,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afbc77f6da7bde54d8d024be0e2d6ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 2664505374280040658}
   groundFlag: {fileID: 2664505373733057811}
   rotationDuration: 0.1
+--- !u!114 &987582552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2664505374496777559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b77fe3d5988098509287ef5d3591131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxSpeed: 10
   acceleration: 7
   deceleration: 7
   velPower: 0.9
+--- !u!114 &987582553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2664505374496777559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e4e6609fc532dfa98c42dea4a93797b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frictionStrength: 0.2
+--- !u!114 &987582554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2664505374496777559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 973b4ce28a55f92c59fbc48e9a17e4a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   jumpStrength: 30
   jumpCoyoteTime: 0.15
   jumpCutPercentage: 0.3
   maxFallSpeed: 20
   fallingGravityStrength: 1.5
-  frictionStrength: 0.2
