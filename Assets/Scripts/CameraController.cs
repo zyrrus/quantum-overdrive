@@ -8,14 +8,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform playerCam;
     [SerializeField] private float smoothingFactor;
     [SerializeField] private float lookRadius;
+    [SerializeField] private Vector3 initOffset = new Vector3(0, 0.5f, -35);
 
-    private Vector3 initOffset;
     private Vector2 targetPos;
-
-    private void Start()
-    {
-        initOffset = playerCam.position - transform.position;
-    }
 
     private void LateUpdate()
     {
