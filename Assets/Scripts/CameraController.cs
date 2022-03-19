@@ -5,7 +5,11 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform playerCam;
+    [Header("Shader")]
+    [SerializeField] private Shader globalShader;
+
+    [Header("Smooth Camera")]
+    [SerializeField] private Camera playerCam;
     [SerializeField] private float smoothingFactor;
     [SerializeField] private float lookRadius;
     [SerializeField] private Vector3 initOffset = new Vector3(0, 0.5f, -35);
@@ -17,7 +21,7 @@ public class CameraController : MonoBehaviour
         Vector3 desired = new Vector3(targetPos.x + transform.position.x, targetPos.y + transform.position.y, 0);
         desired += initOffset;
 
-        playerCam.position = Vector3.Lerp(playerCam.position, desired, smoothingFactor * Time.deltaTime);
+        playerCam.transform.position = Vector3.Lerp(playerCam.transform.position, desired, smoothingFactor * Time.deltaTime);
     }
 
     public void OnLook(InputAction.CallbackContext context)
