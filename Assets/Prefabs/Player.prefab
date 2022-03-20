@@ -444,6 +444,8 @@ GameObject:
   - component: {fileID: 987582552}
   - component: {fileID: 987582553}
   - component: {fileID: 987582554}
+  - component: {fileID: 987582555}
+  - component: {fileID: 987582556}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -600,6 +602,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 987582556}
+        m_TargetAssemblyTypeName: WallMechanics, Assembly-CSharp
+        m_MethodName: OnWallJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 3acb1a67-e933-40e3-b1d8-7329ba0e96ab
     m_ActionName: Player/Jump[/XInputControllerWindows/buttonSouth,/Keyboard/w]
   - m_PersistentCalls:
@@ -636,6 +650,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundFlag: {fileID: 2664505373733057811}
+  upperWallFlag: {fileID: 1534034742}
+  lowerWallFlag: {fileID: 433361741}
   rotationDuration: 0.1
 --- !u!114 &987582552
 MonoBehaviour:
@@ -679,7 +695,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpStrength: 30
-  jumpCoyoteTime: 0.15
+  jumpCoyoteTime: 0.05
   jumpCutPercentage: 0.3
   maxFallSpeed: 20
   fallingGravityStrength: 1.5
+--- !u!114 &987582555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2664505374496777559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22a639fcd59df4a6aa7251288d1f681a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vaultForce: {x: 10, y: 15}
+--- !u!114 &987582556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2664505374496777559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c13696e5ae29c93907e4b1035e7e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  fallingSpeed: 5
+  wallJumpForce: 30
+  wallGrabTime: 0.05

@@ -12,7 +12,8 @@ public class PlayerCore : MonoBehaviour
     [SerializeField] private float rotationDuration = 0.1f;
 
     public Vector2 inputTarget { get; private set; }
-    private Vector2 lastTarget = new Vector2(1, 0);
+    private Vector2 _lastTarget;
+    public Vector2 lastTarget { get => _lastTarget; }
     public bool isFacingRight { get; private set; }
     public bool isGrounded { get; private set; }
     public bool isHittingLowerWall { get; private set; }
@@ -21,6 +22,7 @@ public class PlayerCore : MonoBehaviour
     private void Start()
     {
         isFacingRight = true;
+        _lastTarget = new Vector2(1, 0);
     }
 
     private void Update()
@@ -32,17 +34,18 @@ public class PlayerCore : MonoBehaviour
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
-        if (inputTarget.x != 0) lastTarget.x = inputTarget.x;
-        if (inputTarget.y != 0) lastTarget.y = inputTarget.y;
+        if (inputTarget.x != 0) _lastTarget.x = inputTarget.x;
+        if (inputTarget.y != 0) _lastTarget.y = inputTarget.y;
 
         inputTarget = context.ReadValue<Vector2>();
 
-        if (IsFacingWrongWay()) FlipCharacter();
+        if (IsFacingWrongWay()) FlipCharacter(false);
     }
 
-    private bool IsFacingWrongWay() => lastTarget.x * inputTarget.x < 0;
-    private void FlipCharacter()
+    private bool IsFacingWrongWay() => _lastTarget.x * inputTarget.x < 0;
+    public void FlipCharacter(bool isFlippedExternally)
     {
+        if (isFlippedExternally) _lastTarget.x = 0;
         isFacingRight = !isFacingRight;
         StartCoroutine(FlipCharLerp());
     }

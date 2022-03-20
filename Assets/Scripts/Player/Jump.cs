@@ -37,7 +37,11 @@ public class Jump : MonoBehaviour
     {
         // Update timer
         jumpCoyoteTimer.Tick();
-        if (pc.isGrounded) jumpCoyoteTimer.Reset();
+        if (pc.isGrounded)
+        {
+            jumpCoyoteTimer.Reset();
+            rb.gravityScale = originalGravityScale;
+        }
 
         FallGravity();
     }
@@ -72,8 +76,7 @@ public class Jump : MonoBehaviour
 
     private void FallGravity()
     {
-        if (rb.velocity.y > 0) rb.gravityScale = originalGravityScale;
-        else
+        if (rb.velocity.y < 0)
         {
             rb.gravityScale = originalGravityScale * fallingGravityStrength;
 
