@@ -946,6 +946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afbc77f6da7bde54d8d024be0e2d6ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationParent: {fileID: 0}
   groundFlag: {fileID: 2664505373733057811}
   upperWallFlag: {fileID: 1534034742}
   lowerWallFlag: {fileID: 433361741}

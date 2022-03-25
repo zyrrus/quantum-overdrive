@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerCore : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] private Transform rotationParent;
     [SerializeField] private Flag groundFlag;
     [SerializeField] private Flag upperWallFlag;
     [SerializeField] private Flag lowerWallFlag;
@@ -62,13 +63,13 @@ public class PlayerCore : MonoBehaviour
             Vector3 direction = Vector3.Slerp(Vector3.forward, -Vector3.forward, timeElapsed / rotationDuration);
             Quaternion rotation = Quaternion.LookRotation(direction * -facingSign, Vector3.up);
 
-            transform.rotation = rotation;
+            rotationParent.rotation = rotation;
             timeElapsed += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.rotation = endGoal;
+        rotationParent.rotation = endGoal;
     }
 
     private void OnDrawGizmos()
