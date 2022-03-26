@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 76}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &165332944
 CanvasRenderer:
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: '*Debug Text*'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -161,7 +161,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300268662}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 0.0125, y: 0.0125, z: 0.0125}
   m_Children:
   - {fileID: 165332942}
@@ -737,6 +737,7 @@ GameObject:
   - component: {fileID: 2664505374496777547}
   - component: {fileID: 2664505374496777549}
   - component: {fileID: 2664505374496777546}
+  - component: {fileID: 97437160}
   - component: {fileID: 2664505374496777545}
   - component: {fileID: 987582552}
   - component: {fileID: 987582553}
@@ -934,6 +935,19 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &97437160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2664505374496777559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a5e8d526f888693a9e3c8bf23b3c4c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 300268666}
 --- !u!114 &2664505374496777545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -946,7 +960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afbc77f6da7bde54d8d024be0e2d6ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationParent: {fileID: 0}
+  rotationParent: {fileID: 6017510419832958107}
   groundFlag: {fileID: 2664505373733057811}
   upperWallFlag: {fileID: 1534034742}
   lowerWallFlag: {fileID: 433361741}
@@ -963,10 +977,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b77fe3d5988098509287ef5d3591131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed:
+  - 5
+  - 10
+  - 15
   acceleration: 7
   deceleration: 7
   velPower: 0.9
+  tierStallTime: 0.25
+  tierDecayTime: 2.76
 --- !u!114 &987582553
 MonoBehaviour:
   m_ObjectHideFlags: 0
