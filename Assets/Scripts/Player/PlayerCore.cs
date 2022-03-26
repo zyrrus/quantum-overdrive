@@ -77,7 +77,7 @@ public class PlayerCore : MonoBehaviour
         float rad = 2;
         Vector2 root = transform.position;
 
-        Gizmos.color = Color.grey;
+        Gizmos.color = Color.black;
         Gizmos.DrawSphere(root + (inputTarget * rad), 0.1f);
     }
 }
