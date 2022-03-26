@@ -16,10 +16,13 @@ public class Timer
     }
 
     public void Reset() => currentTime = timerLength;
+    public void Reset(float newDuration)
+    {
+        timerLength = newDuration;
+        currentTime = timerLength;
+    }
+
     public void Tick() { if (currentTime > 0) currentTime -= Time.deltaTime; }
 
-    public override string ToString()
-    {
-        return currentTime + "/" + timerLength;
-    }
+    public override string ToString() => currentTime + "/" + timerLength;
 }
