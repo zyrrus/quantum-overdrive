@@ -9,6 +9,12 @@ public class Timer
 
     public bool isOver { get => currentTime <= 0; }
 
+    public Timer()
+    {
+        timerLength = 0;
+        currentTime = 0;
+    }
+
     public Timer(float duration)
     {
         timerLength = duration;
@@ -16,10 +22,13 @@ public class Timer
     }
 
     public void Reset() => currentTime = timerLength;
+    public void Reset(float newDuration)
+    {
+        timerLength = newDuration;
+        Reset();
+    }
+
     public void Tick() { if (currentTime > 0) currentTime -= Time.deltaTime; }
 
-    public override string ToString()
-    {
-        return currentTime + "/" + timerLength;
-    }
+    public override string ToString() => currentTime + "/" + timerLength;
 }

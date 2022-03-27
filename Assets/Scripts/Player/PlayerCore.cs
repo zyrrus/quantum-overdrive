@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerCore : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] private Transform rotationParent;
     [SerializeField] private Flag groundFlag;
     [SerializeField] private Flag upperWallFlag;
     [SerializeField] private Flag lowerWallFlag;
@@ -19,8 +20,13 @@ public class PlayerCore : MonoBehaviour
     public bool isHittingLowerWall { get; private set; }
     public bool isHittingUpperWall { get; private set; }
 
+    private int _speedTier;
+    public int speedTier { get => _speedTier; set { _speedTier = Mathf.Clamp(value, 0, 2); } }
+
+
     private void Start()
     {
+        speedTier = 0;
         isFacingRight = true;
         _lastTarget = new Vector2(1, 0);
     }
@@ -62,13 +68,13 @@ public class PlayerCore : MonoBehaviour
             Vector3 direction = Vector3.Slerp(Vector3.forward, -Vector3.forward, timeElapsed / rotationDuration);
             Quaternion rotation = Quaternion.LookRotation(direction * -facingSign, Vector3.up);
 
-            transform.rotation = rotation;
+            rotationParent.rotation = rotation;
             timeElapsed += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.rotation = endGoal;
+        rotationParent.rotation = endGoal;
     }
 
     private void OnDrawGizmos()
@@ -76,7 +82,7 @@ public class PlayerCore : MonoBehaviour
         float rad = 2;
         Vector2 root = transform.position;
 
-        Gizmos.color = Color.grey;
+        Gizmos.color = Color.black;
         Gizmos.DrawSphere(root + (inputTarget * rad), 0.1f);
     }
 }

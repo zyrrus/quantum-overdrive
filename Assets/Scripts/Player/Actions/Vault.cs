@@ -7,6 +7,9 @@ public class Vault : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerCore pc;
 
+    [SerializeField] private Flag lowerVaultFlag;
+    [SerializeField] private Flag upperVaultFlag;
+
     [SerializeField] private Vector2 vaultForce;
     private bool isVaulting;
 
@@ -21,7 +24,7 @@ public class Vault : MonoBehaviour
     {
         if (pc.isGrounded) isVaulting = false;
 
-        bool canVault = !isVaulting && pc.isGrounded && !pc.isHittingUpperWall && pc.isHittingLowerWall;
+        bool canVault = !isVaulting && pc.isGrounded && !upperVaultFlag.IsTriggered() && lowerVaultFlag.IsTriggered();
 
         if (canVault)
         {
@@ -30,7 +33,7 @@ public class Vault : MonoBehaviour
             rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         }
 
-        if (isVaulting && !pc.isHittingLowerWall)
+        if (isVaulting && !lowerVaultFlag.IsTriggered())
         {
             isVaulting = false;
             float force = vaultForce.x;
