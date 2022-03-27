@@ -1095,17 +1095,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 792580703}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &797705244 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 165332943, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
-  m_PrefabInstance: {fileID: 2664505373947772665}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &816495262
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3971,45 +3960,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 97437160, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
-      propertyPath: debugger
-      value: 
-      objectReference: {fileID: 797705244}
     - target: {fileID: 428774024, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
       propertyPath: playerCam
       value: 
       objectReference: {fileID: 1309147184}
-    - target: {fileID: 987582552, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
-      propertyPath: acceleration
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 987582552, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
-      propertyPath: deceleration
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 987582552, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
-      propertyPath: tierDecayTime
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 987582552, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
-      propertyPath: tierStallTime
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 987582552, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
-      propertyPath: tierStallResetTime
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 2664505374496777544, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2664505374496777544, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.97
+      value: 9.9
       objectReference: {fileID: 0}
     - target: {fileID: 2664505374496777544, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.84
+      value: 1.42
       objectReference: {fileID: 0}
     - target: {fileID: 2664505374496777544, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
       propertyPath: m_LocalPosition.z
