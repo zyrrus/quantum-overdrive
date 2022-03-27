@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class PlayerDetection : MonoBehaviour
 {
-    EnemyBasic parentScript;
+    [SerializeField] StateMachineEnemyBasic parentScript;
     
-    private void Start() {
-        parentScript = transform.parent.GetComponent<EnemyBasic>();
-    }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "Player") {
