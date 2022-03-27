@@ -9,6 +9,12 @@ public class Timer
 
     public bool isOver { get => currentTime <= 0; }
 
+    public Timer()
+    {
+        timerLength = 0;
+        currentTime = 0;
+    }
+
     public Timer(float duration)
     {
         timerLength = duration;
@@ -19,7 +25,7 @@ public class Timer
     public void Reset(float newDuration)
     {
         timerLength = newDuration;
-        currentTime = timerLength;
+        Reset();
     }
 
     public void Tick() { if (currentTime > 0) currentTime -= Time.deltaTime; }

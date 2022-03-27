@@ -6,7 +6,7 @@ public class Run : MonoBehaviour
 {
     private Rigidbody2D rb;
     private PlayerCore pc;
-    private PlayerLog pl;
+    private UILogger pl;
 
     [Header("Basic Movement")]
     [SerializeField] private float[] maxSpeed = new float[3];
@@ -20,15 +20,13 @@ public class Run : MonoBehaviour
     [SerializeField] private float tierDecayTime;
     private Timer tierDecayTimer;
     private bool isStalling = false;
-    private int speedTier = 0;
-
 
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         pc = GetComponent<PlayerCore>();
-        pl = GetComponent<PlayerLog>();
+        pl = GetComponent<UILogger>();
     }
 
     private void Start()
@@ -41,7 +39,7 @@ public class Run : MonoBehaviour
     {
         UpdatedSpeedTier();
 
-        float targetSpeed = pc.inputTarget.x * maxSpeed[speedTier];
+        float targetSpeed = pc.inputTarget.x * maxSpeed[pc.speedTier];
         float diffFromMax = targetSpeed - rb.velocity.x;
         float accel = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
 
@@ -52,15 +50,15 @@ public class Run : MonoBehaviour
 
     private void UpdatedSpeedTier()
     {
-        pl.Log($"Speed tier: {speedTier}");
+        pl.ReplaceLog($"Speed tier: {pc.speedTier}");
         pl.PushLog($"\nVelocity: {rb.velocity.x}");
 
-        isStalling = Mathf.Abs(rb.velocity.x - maxSpeed[speedTier]) < 0.1f;
+        isStalling = Mathf.Abs(rb.velocity.x - maxSpeed[pc.speedTier]) < 0.1f;
 
         if (isStalling) tierStallTimer.Tick();
         else tierStallTimer.Reset();
 
-        if (isStalling && tierStallTimer.isOver && speedTier < maxSpeed.Length - 1) speedTier++;
+        if (isStalling && tierStallTimer.isOver && pc.speedTier < maxSpeed.Length - 1) pc.speedTier++;
 
     }
 }

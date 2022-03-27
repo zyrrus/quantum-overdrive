@@ -932,6 +932,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d857f64b-f92d-4109-a27f-58a4be54a3b2
     m_ActionName: Player/Look[/XInputControllerWindows/rightStick,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3107322394378470264}
+        m_TargetAssemblyTypeName: Attack, Assembly-CSharp
+        m_MethodName: OnLightAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 91b98d88-d3c1-4d07-9a87-60107043b385
+    m_ActionName: Player/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3107322394378470264}
+        m_TargetAssemblyTypeName: Attack, Assembly-CSharp
+        m_MethodName: OnHeavyAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 745f59dd-b360-4a34-99ae-0136d7439828
+    m_ActionName: Player/HeavyAttack[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -949,7 +981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5e8d526f888693a9e3c8bf23b3c4c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 300268666}
+  debugger: {fileID: 165332943}
 --- !u!114 &2664505374496777545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -967,6 +999,7 @@ MonoBehaviour:
   upperWallFlag: {fileID: 1534034742}
   lowerWallFlag: {fileID: 433361741}
   rotationDuration: 0.1
+  speedTier: 0
 --- !u!114 &987582552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,7 +1019,7 @@ MonoBehaviour:
   acceleration: 7
   deceleration: 7
   velPower: 0.9
-  tierStallTime: 0.25
+  tierStallTime: 1.22
   tierDecayTime: 2.76
 --- !u!114 &987582553
 MonoBehaviour:
@@ -1062,7 +1095,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleHitboxes: {fileID: 5081807395261314792}
-  attackDuration: 1.5
+  lightAttackDuration: 0.4
+  heavyAttackDuration: 0.8
+  lightAttackDamage: 5
+  heavyAttackDamage: 15
+  speedDamageMultiplier:
+  - 0.25
+  - 1
+  - 1.5
 --- !u!1 &4765233875209504634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,6 +1113,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8302504760507574954}
   - component: {fileID: 1941936477054443100}
+  - component: {fileID: 1356831443}
   m_Layer: 0
   m_Name: DownHit
   m_TagString: Untagged
@@ -1120,6 +1161,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1356831443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4765233875209504634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e053677ebea612f419a7dbd7417044f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
 --- !u!1 &6251324301968955798
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,6 +1184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5396469425240445763}
   - component: {fileID: 3497152368996881068}
+  - component: {fileID: 2057456074}
   m_Layer: 0
   m_Name: ForwardHit
   m_TagString: Untagged
@@ -1177,6 +1232,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2057456074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6251324301968955798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e053677ebea612f419a7dbd7417044f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
 --- !u!1 &7666608328508458360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,6 +1304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7031037867996078385}
   - component: {fileID: 139857911423295697}
+  - component: {fileID: 1227601170}
   m_Layer: 0
   m_Name: UpHit
   m_TagString: Untagged
@@ -1283,3 +1352,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1227601170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8261262183147428345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e053677ebea612f419a7dbd7417044f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5

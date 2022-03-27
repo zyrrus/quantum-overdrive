@@ -20,7 +20,7 @@ public class ToggleHitboxes : MonoBehaviour
         downHitbox.SetActive(false);
     }
 
-    public void EnableHitbox(AttackDirection attack)
+    public void EnableHitbox(AttackDirection attack, float damage)
     {
         switch (attack)
         {
@@ -35,6 +35,7 @@ public class ToggleHitboxes : MonoBehaviour
                 break;
         }
 
+        activeHitbox.GetComponent<AttackCollider>().SetDamage(damage);
         activeHitbox.SetActive(true);
     }
 

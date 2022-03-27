@@ -5,21 +5,21 @@ using UnityEngine.InputSystem;
 
 public class Attack : MonoBehaviour
 {
+    private readonly float verticalThreshold = 1 / Mathf.Sqrt(2);
+
     private PlayerCore pc;
     [SerializeField] private ToggleHitboxes toggleHitboxes;
 
-    [SerializeField] private float attackDuration;
+    [SerializeField] private float lightAttackDuration;
+    [SerializeField] private float heavyAttackDuration;
     private Timer attackTimer;
 
-    private void Awake()
-    {
-        pc = GetComponent<PlayerCore>();
-    }
+    [SerializeField] private float lightAttackDamage;
+    [SerializeField] private float heavyAttackDamage;
+    [SerializeField] private float[] speedDamageMultiplier = { 0.25f, 1f, 1.5f };
 
-    private void Start()
-    {
-        attackTimer = new Timer(attackDuration);
-    }
+    private void Awake() => pc = GetComponent<PlayerCore>();
+    private void Start() => attackTimer = new Timer(0);
 
     private void Update()
     {
@@ -27,13 +27,21 @@ public class Attack : MonoBehaviour
         else attackTimer.Tick();
     }
 
-
-    public void OnAttack(InputAction.CallbackContext context)
+    public void OnLightAttack(InputAction.CallbackContext context) => OnAttack(context, lightAttackDamage, lightAttackDuration);
+    public void OnHeavyAttack(InputAction.CallbackContext context) => OnAttack(context, heavyAttackDamage, heavyAttackDuration);
+    private void OnAttack(InputAction.CallbackContext context, float baseDamage, float duration)
     {
         if (!context.performed) return;
+        if (!attackTimer.isOver) return;
 
-        float verticalThreshold = 1 / Mathf.Sqrt(2);
+        AttackDirection attack = GetAttackDirection();
 
+        toggleHitboxes.EnableHitbox(attack, baseDamage * speedDamageMultiplier[pc.speedTier]);
+        attackTimer.Reset(duration);
+    }
+
+    private AttackDirection GetAttackDirection()
+    {
         AttackDirection attack = AttackDirection.Forward;
 
         if (pc.inputTarget.y >= verticalThreshold)
@@ -41,7 +49,6 @@ public class Attack : MonoBehaviour
         else if (pc.inputTarget.y <= -verticalThreshold)
             attack = AttackDirection.Down;
 
-        toggleHitboxes.EnableHitbox(attack);
-        attackTimer.Reset();
+        return attack;
     }
 }

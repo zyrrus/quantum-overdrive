@@ -20,8 +20,13 @@ public class PlayerCore : MonoBehaviour
     public bool isHittingLowerWall { get; private set; }
     public bool isHittingUpperWall { get; private set; }
 
+    private int _speedTier;
+    public int speedTier { get => _speedTier; set { _speedTier = Mathf.Clamp(value, 0, 2); } }
+
+
     private void Start()
     {
+        speedTier = 0;
         isFacingRight = true;
         _lastTarget = new Vector2(1, 0);
     }
