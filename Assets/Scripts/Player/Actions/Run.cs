@@ -19,7 +19,8 @@ public class Run : MonoBehaviour
     private Timer tierStallTimer;
     [SerializeField] private float tierDecayTime;
     private Timer tierDecayTimer;
-    private bool isStalling = false;
+    [SerializeField] private float tierStallResetTime;
+    private Timer tierStallResetTimer;
 
 
     private void Awake()
@@ -33,6 +34,7 @@ public class Run : MonoBehaviour
     {
         tierStallTimer = new Timer(tierStallTime);
         tierDecayTimer = new Timer(tierDecayTime);
+        tierStallResetTimer = new Timer(tierStallResetTime);
     }
 
     private void Update()
@@ -53,12 +55,39 @@ public class Run : MonoBehaviour
         pl.ReplaceLog($"Speed tier: {pc.speedTier}");
         pl.PushLog($"\nVelocity: {rb.velocity.x}");
 
-        isStalling = Mathf.Abs(rb.velocity.x - maxSpeed[pc.speedTier]) < 0.1f;
+        bool isStalling = Mathf.Abs(rb.velocity.x) > maxSpeed[pc.speedTier] - 0.25f;
+        bool isLagging = Mathf.Abs(rb.velocity.x) < maxSpeed[Mathf.Clamp(pc.speedTier - 1, 0, 2)] + 0.25f;
 
-        if (isStalling) tierStallTimer.Tick();
-        else tierStallTimer.Reset();
+        if (isStalling)
+        {
+            tierStallResetTimer.Reset();
+            tierStallTimer.Tick();
+        }
+        else
+        {
+            tierStallResetTimer.Tick();
+            if (tierStallResetTimer.isOver)
+                tierStallTimer.Reset();
+        }
 
-        if (isStalling && tierStallTimer.isOver && pc.speedTier < maxSpeed.Length - 1) pc.speedTier++;
+        if (isLagging) tierDecayTimer.Tick();
+        else tierDecayTimer.Reset();
+
+        if (isStalling && tierStallTimer.isOver)
+        {
+            tierStallTimer.Reset();
+            pc.speedTier++;
+        }
+
+        if (isLagging && tierDecayTimer.isOver)
+        {
+            tierDecayTimer.Reset();
+            pc.speedTier--;
+        }
+
+        pl.PushLog("\nStall " + tierStallTimer.ToString());
+        pl.PushLog("\nDecay " + tierDecayTimer.ToString());
+        pl.PushLog("\nReset " + tierStallResetTimer.ToString());
 
     }
 }

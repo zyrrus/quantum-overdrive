@@ -1131,7 +1131,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7055375258744364812, guid: 65345fa6b9fe7b94399f49d1dd135b9d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.5949974
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7055375258744364812, guid: 65345fa6b9fe7b94399f49d1dd135b9d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1893,7 +1893,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1309147186
 MonoBehaviour:
@@ -1988,7 +1988,7 @@ Transform:
   - {fileID: 1944008499}
   - {fileID: 543970932}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1362908310
 GameObject:
@@ -3979,6 +3979,26 @@ PrefabInstance:
       propertyPath: playerCam
       value: 
       objectReference: {fileID: 1309147184}
+    - target: {fileID: 987582552, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
+      propertyPath: acceleration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 987582552, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
+      propertyPath: deceleration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 987582552, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
+      propertyPath: tierDecayTime
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 987582552, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
+      propertyPath: tierStallTime
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 987582552, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
+      propertyPath: tierStallResetTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2664505374496777544, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
       propertyPath: m_RootOrder
       value: 2
