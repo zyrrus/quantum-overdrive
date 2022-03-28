@@ -6,8 +6,9 @@ body {
     font-family: 'Open Sans', sans-serif;
     /*font-family: 'Press Start 2P', cursive;*/
     display: flex;
-    align-items: center;
+    text-align: center;
     justify-content: center;
+    align-items: center;
 }
 
 nav{
@@ -18,11 +19,18 @@ nav{
 h1 {
     text-transform: uppercase;
     font-family: 'Press Start 2P', cursive;
+    text-align: center;
 }
 
 h3 {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+
+h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2000px;
 }
 
 
