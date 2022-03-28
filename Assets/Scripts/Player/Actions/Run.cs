@@ -9,9 +9,10 @@ public class Run : MonoBehaviour
     private UILogger pl;
 
     [Header("Basic Movement")]
-    [SerializeField] private float[] maxSpeed = new float[3];
-    [SerializeField] private float acceleration;
-    [SerializeField] private float deceleration;
+    [SerializeField] private float[] maxTargetSpeed = new float[3];
+    private float maxSpeed;
+    [SerializeField] private float[] acceleration = new float[3];
+    [SerializeField] private float[] deceleration = new float[3];
     [SerializeField] private float velPower;
 
     [Header("Speed Tiers")]
@@ -21,6 +22,7 @@ public class Run : MonoBehaviour
     private Timer tierDecayTimer;
     [SerializeField] private float tierStallResetTime;
     private Timer tierStallResetTimer;
+    [SerializeField] private float maxVelocityChangeRate;
 
 
     private void Awake()
@@ -35,15 +37,17 @@ public class Run : MonoBehaviour
         tierStallTimer = new Timer(tierStallTime);
         tierDecayTimer = new Timer(tierDecayTime);
         tierStallResetTimer = new Timer(tierStallResetTime);
+
+        maxSpeed = maxTargetSpeed[0];
     }
 
     private void Update()
     {
         UpdatedSpeedTier();
 
-        float targetSpeed = pc.inputTarget.x * maxSpeed[pc.speedTier];
+        float targetSpeed = pc.inputTarget.x * maxSpeed;
         float diffFromMax = targetSpeed - rb.velocity.x;
-        float accel = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
+        float accel = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration[pc.speedTier] : deceleration[pc.speedTier];
 
         float moveForce = Mathf.Pow(Mathf.Abs(diffFromMax) * accel, velPower) * Mathf.Sign(diffFromMax);
 
@@ -55,9 +59,37 @@ public class Run : MonoBehaviour
         pl.ReplaceLog($"Speed tier: {pc.speedTier}");
         pl.PushLog($"\nVelocity: {rb.velocity.x}");
 
-        bool isStalling = Mathf.Abs(rb.velocity.x) > maxSpeed[pc.speedTier] - 0.25f;
-        bool isLagging = Mathf.Abs(rb.velocity.x) < maxSpeed[Mathf.Clamp(pc.speedTier - 1, 0, 2)] + 0.25f;
+        float prevSpeedTier = maxTargetSpeed[Mathf.Clamp(pc.speedTier - 1, 0, 2)];
 
+        bool isStalling = Mathf.Abs(rb.velocity.x) > maxTargetSpeed[pc.speedTier] - 0.25f;
+        bool isLagging = Mathf.Abs(rb.velocity.x) < prevSpeedTier + 0.25f;
+
+        updateStallTimer(isStalling);
+        updateDecayTimer(isLagging);
+
+
+        if (pc.speedTier != 2 && isStalling && tierStallTimer.isOver)
+        {
+            tierStallTimer.Reset();
+            pc.speedTier++;
+            StartCoroutine(LerpMaxSpeed(prevSpeedTier));
+        }
+
+        else if (pc.speedTier != 0 && isLagging && tierDecayTimer.isOver)
+        {
+            tierDecayTimer.Reset();
+            pc.speedTier--;
+            StartCoroutine(LerpMaxSpeed(maxTargetSpeed[Mathf.Clamp(pc.speedTier + 1, 0, 2)]));
+        }
+
+        pl.PushLog("\nStall " + tierStallTimer.ToString());
+        pl.PushLog("\nDecay " + tierDecayTimer.ToString());
+        pl.PushLog("\nReset " + tierStallResetTimer.ToString());
+        pl.PushLog("\nMaxSpeed " + maxSpeed);
+    }
+
+    private void updateStallTimer(bool isStalling)
+    {
         if (isStalling)
         {
             tierStallResetTimer.Reset();
@@ -69,25 +101,27 @@ public class Run : MonoBehaviour
             if (tierStallResetTimer.isOver)
                 tierStallTimer.Reset();
         }
+    }
 
+    private void updateDecayTimer(bool isLagging)
+    {
         if (isLagging) tierDecayTimer.Tick();
         else tierDecayTimer.Reset();
+    }
 
-        if (isStalling && tierStallTimer.isOver)
+    private IEnumerator LerpMaxSpeed(float prevSpeed)
+    {
+        float targetSpeed = maxTargetSpeed[pc.speedTier];
+        float t = 0;
+        while (t < 1)
         {
-            tierStallTimer.Reset();
-            pc.speedTier++;
+            maxSpeed = Mathf.Lerp(prevSpeed, targetSpeed, t);
+
+            t += Time.deltaTime / maxVelocityChangeRate;
+
+            yield return null;
         }
 
-        if (isLagging && tierDecayTimer.isOver)
-        {
-            tierDecayTimer.Reset();
-            pc.speedTier--;
-        }
-
-        pl.PushLog("\nStall " + tierStallTimer.ToString());
-        pl.PushLog("\nDecay " + tierDecayTimer.ToString());
-        pl.PushLog("\nReset " + tierStallResetTimer.ToString());
-
+        maxSpeed = targetSpeed;
     }
 }
