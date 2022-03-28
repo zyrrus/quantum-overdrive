@@ -33,6 +33,7 @@ public class EnemyStatic : StateMachineEnemyBasic
     public override void AttackAction() {
         // Debug.Log("AttackCannon");
         AimCannon();
+        cannon.Shoot();
     }
 
     public override void ResetAction() {
