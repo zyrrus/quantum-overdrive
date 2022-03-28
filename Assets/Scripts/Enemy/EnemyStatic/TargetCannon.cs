@@ -8,6 +8,8 @@ public class TargetCannon : MonoBehaviour
     private Vector3 currPosition ;
     [SerializeField] float rotateSpeed;
 
+    [SerializeField] AbstractBarrel barrel;
+
     private void Awake() {
         currPosition = transform.position + new Vector3(-1, 0, 0);
     }
@@ -19,5 +21,9 @@ public class TargetCannon : MonoBehaviour
 
         Quaternion lookAt = Quaternion.LookRotation(targetPosition - transform.position, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookAt, rotateSpeed * Time.deltaTime);
+    }
+
+    public void Shoot() {
+        barrel.Shoot();
     }
 }

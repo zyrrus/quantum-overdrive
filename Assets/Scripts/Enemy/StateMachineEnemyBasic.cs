@@ -15,10 +15,6 @@ public abstract class StateMachineEnemyBasic : MonoBehaviour
     private bool inStaggerAnimation;
     private bool atHomeLocation;
 
-    // private void Awake() {
-    //     state = StateDetecting;
-    // }
-
     // Start is called before the first frame update
     protected virtual void Start()
     {
