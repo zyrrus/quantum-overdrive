@@ -5,33 +5,28 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="https://cdn.tailwindcss.com"></script>
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css"
-        />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-        <title>Quantum Overdrive</title>
+        <link rel="stylesheet" href="main.css"/>
+        <title>Quantum Overdrive</title>     
         
     </head>
     <body
         class="flex flex-col items-center justify-center bg-neutral-800 text-neutral-200"
     >
         <!-- Navigation bar -->
-        <nav class="fixed top-0 w-full bg-neutral-900">
-            <ul class="flex flex-row items-center justify-around">
-                <li class="p-3 text-2xl text-amber-100 hover:text-amber-300">
-                    <a href="#updates">Updates</a>
-                </li>
-                <li class="p-3 text-2xl text-amber-100 hover:text-amber-300">
-                    <a href="#about">About</a>
-                </li>
-                <li class="p-3 text-2xl text-amber-100 hover:text-amber-300">
-                    <a href="#play">Play</a>
-                </li>
-            </ul>
-        </nav>
+            <nav class="fixed top-0 w-full bg-neutral-900">
+                <ul class="flex flex-row items-center justify-around">
+                    <li class="p-3 text-2xl text-amber-100 hover:text-amber-300">
+                        <a href="#updates">Updates</a>
+                    </li>
+                    <li class="p-3 text-2xl text-amber-100 hover:text-amber-300">
+                        <a href="#about">About</a>
+                    </li>
+                    <li class="p-3 text-2xl text-amber-100 hover:text-amber-300">
+                        <a href="#play">Play</a>
+                    </li>
+                </ul>
+            </nav>
+
         <div class="w-11/12 sm:w-4/5 xl:w-1/2">
             <!-- Title -->
             <div class="flex flex-col justify-center h-screen">
@@ -45,7 +40,7 @@
             <!-- Updates -->
             <a name="updates"></a>
             <section class="py-40">
-                <h2 class="my-10 text-3xl text-amber-300">Updates:</h2>
+                <h1 class="my-10 text-3xl text-amber-300">Updates:</h1>
                 <div>
                     <h3 class="my-2 text-2xl text-amber-100">
                         Started work on Quantum Overdrive!
@@ -53,26 +48,29 @@
                     <h4 class="my-2 text-sm">2/21/22</h4>
                     <p>
                         <i>Quantum Dev</i> is excited to announce that we have
-                        started work on a new, sci-fi/dystopian rogue-like.
+                        started work on a new, sci-fi/dystopian, open-world adventure.
                         <br />
                         Concept art coming soon!
                     </p>
                 </div>
                 <div>
-                    <h3 class="my-2 text-2xl text-amber-100">
+                    <h2 class="my-2 text-2xl text-amber-100">
                         Game Functions and art work have been created!
-                    </h3>
+                    </h2>
                     <h4 class="my-2 text-sm">3/28/22</h4>
                     <div class="row">
                         <div class="column">
-                          <img src="Ball .png" alt="Snow" style="width:100%">
+                          <img src="Ball .png" alt="Ball character">
                         </div>
                         <div class="column">
-                          <img src="quantum character.png" alt="Forest" style="width:100%">
+                          <img src="quantum character.png" alt="Quantum Character number 1" style="width:100%">
                         </div>
                         <div class="column">
-                          <img src="quantumcharacter2.jpeg" alt="Mountains" style="width:100%">
+                          <img src="quantumcharacter2.jpeg" alt="Quantum Character number 1" style="width:100%">
                         </div>
+                        <div class="column">
+                            <img src="quantumdevplayer.jpeg" alt="Quantum Character number 2" style="width:100%">
+                          </div>
                       </div>
 
             </section>
@@ -80,7 +78,7 @@
             <!-- About us -->
             <a name="about"></a>
             <section class="py-40">
-                <h2 class="my-10 text-3xl text-amber-300">About the team:</h2>
+                <h1 class="my-10 text-3xl text-amber-300">About the team:</h1>
                 <div class="my-10">
                     <h3 class="my-6 text-2xl text-amber-100">
                         Zeke Abshire -
@@ -121,7 +119,7 @@
                         <i> &ltTeam Lead & Graphic Designer/Artist&gt </i>
                     </h3>
                     <p>
-                        Computer science Major
+                        Computer Science Major
                     </p>
                 </div>
             </section>
@@ -129,11 +127,18 @@
             <!-- Play -->
             <a name="play"></a>
             <section class="py-40">
-                <h2 class="my-10 text-3xl text-amber-300">Play our game:</h2>
+                <h1 class="my-10 text-3xl text-amber-300">Play our game:</h1>
+                <a href="https://store.steampowered.com/games/"><!--link to steam-->
+                    <img style="padding-bottom: 35px;" src="available-on-steam.png" alt="Steam Logo" style="width:100%">
+                </a>
+                <a href="https://itch.io/"> <!--link to itch-->
+                    <img src="itchlogo.png" alt="Itch Logo" style="width:100%" style="padding-top: 35px;">
+                </a>
                 <ul>
-                    <li><a href="#">Steam</a></li>
-                    <li><a href="#">itch.io</a></li>
+                    <li></li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
                 </ul>
+                <p style="font-size: xx-large; font-weight: bolder; line-height: 2;" id="demo"></p>
             </section>
         </div>
         <script>
