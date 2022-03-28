@@ -3964,6 +3964,18 @@ PrefabInstance:
       propertyPath: playerCam
       value: 
       objectReference: {fileID: 1309147184}
+    - target: {fileID: 987582552, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
+      propertyPath: acceleration
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 987582552, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
+      propertyPath: deceleration
+      value: 1.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 987582552, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
+      propertyPath: tierStallTime
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 2664505374496777544, guid: c37e5caea8f1f4a41804598384b1572c, type: 3}
       propertyPath: m_RootOrder
       value: 2
