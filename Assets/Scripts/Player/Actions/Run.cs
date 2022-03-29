@@ -6,7 +6,7 @@ public class Run : MonoBehaviour
 {
     private Rigidbody2D rb;
     private PlayerCore pc;
-    private UILogger pl;
+    [SerializeField] private UILogger pl;
 
     [Header("Basic Movement")]
     [SerializeField] private float[] maxTargetSpeed = new float[3];
@@ -29,7 +29,7 @@ public class Run : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         pc = GetComponent<PlayerCore>();
-        pl = GetComponent<UILogger>();
+        // pl = GetComponent<UILogger>();
     }
 
     private void Start()

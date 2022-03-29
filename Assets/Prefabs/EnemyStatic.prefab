@@ -48,7 +48,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2973550210832628975, guid: ebfe0349c35dd864f9b78525f86c8655, type: 3}
   bulletParentPrefab: {fileID: 884576643362801590, guid: 8e2ad59bfc0732048ab392fc3834cd7e, type: 3}
   initialBulletCount: 3
-  shotCooldown: 0.5
+  shotCooldown: 1
   bulletSpawnPoint: {fileID: 3139987981528165724}
 --- !u!1 &3139987981528165724
 GameObject:
@@ -841,6 +841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce9c972992d3c394f95a02c79ee33e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  logger: {fileID: 0}
   maxHealth: 100
 --- !u!1 &3414797330113405827
 GameObject:

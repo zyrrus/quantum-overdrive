@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    private UILogger logger;
+    [SerializeField] private UILogger logger;
 
     [SerializeField] private float maxHealth;
     private float curHealth;
 
     private void Awake()
     {
-        logger = GetComponent<UILogger>();
+        if (logger == null)
+            logger = GetComponent<UILogger>();
     }
 
     private void Start()
