@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PathEnemy : MonoBehaviour
 {
-    // TODO: Damage player on touch and 
-    // slow down instead of stopping abruptly
+    // TODO: Damage player on touch 
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform transformParent;
@@ -33,7 +32,10 @@ public class PathEnemy : MonoBehaviour
         if (moveDir.magnitude < 0.1f)
         {
             NextNode();
-            rb.velocity = new Vector2();
+
+            float curSpeed = rb.velocity.magnitude;
+            Vector2 newDir = (pathNodes[targetNode].position - transformParent.position);
+            rb.velocity = newDir.normalized * curSpeed;
         }
         else
         {
