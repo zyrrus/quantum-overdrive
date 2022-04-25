@@ -352,9 +352,29 @@ PrefabInstance:
       value: Load
       objectReference: {fileID: 0}
     - target: {fileID: 8933730863542699419, guid: 06fb1e5915e8d1f0f947a867c0b8b51e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933730863542699419, guid: 06fb1e5915e8d1f0f947a867c0b8b51e, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933730863542699419, guid: 06fb1e5915e8d1f0f947a867c0b8b51e, type: 3}
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 1228768765}
+    - target: {fileID: 8933730863542699419, guid: 06fb1e5915e8d1f0f947a867c0b8b51e, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 0.56350124
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933730863542699419, guid: 06fb1e5915e8d1f0f947a867c0b8b51e, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 0.56350124
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933730863542699419, guid: 06fb1e5915e8d1f0f947a867c0b8b51e, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 0.6320754
+      objectReference: {fileID: 0}
     - target: {fileID: 8933730863542699419, guid: 06fb1e5915e8d1f0f947a867c0b8b51e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
