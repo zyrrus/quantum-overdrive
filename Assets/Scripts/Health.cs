@@ -4,16 +4,10 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private UILogger logger;
+    [SerializeField] private HealthRing health;
 
-    [SerializeField] private float maxHealth;
-    private float curHealth;
-
-    private void Awake()
-    {
-        if (logger == null)
-            logger = GetComponent<UILogger>();
-    }
+    [SerializeField] protected float maxHealth;
+    protected float curHealth;
 
     private void Start()
     {
@@ -35,11 +29,14 @@ public class Health : MonoBehaviour
 
     public bool IsDead() => curHealth == 0;
 
-    private void LogHealth() => logger.ReplaceLog($"{curHealth} / {maxHealth}");
+    private void LogHealth() => health.UpdateFill(curHealth / maxHealth);
 
-    private void DestroyOnDeath() {
-        if (IsDead()) {
-            if (gameObject.tag != "Player") {
+    private void DestroyOnDeath()
+    {
+        if (IsDead())
+        {
+            if (gameObject.tag != "Player")
+            {
                 Destroy(gameObject);
             }
 
