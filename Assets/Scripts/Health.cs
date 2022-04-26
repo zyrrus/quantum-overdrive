@@ -25,6 +25,7 @@ public class Health : MonoBehaviour
     {
         curHealth = Mathf.Clamp(curHealth - amount, 0, maxHealth);
         LogHealth();
+        DestroyOnDeath();
     }
     public void GainHealth(float amount)
     {
@@ -35,4 +36,13 @@ public class Health : MonoBehaviour
     public bool IsDead() => curHealth == 0;
 
     private void LogHealth() => logger.ReplaceLog($"{curHealth} / {maxHealth}");
+
+    private void DestroyOnDeath() {
+        if (IsDead()) {
+            if (gameObject.tag != "Player") {
+                Destroy(gameObject);
+            }
+
+        }
+    }
 }
