@@ -6,7 +6,7 @@ public class CollisionHurtPlayer : MonoBehaviour
 {
     [SerializeField] private float damage = 10;
 
-    private void OnCollisionEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log("Collision Hit something " + other.gameObject.name);
         if (other.gameObject.tag == "Player")
