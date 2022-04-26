@@ -47,6 +47,7 @@ public class PathEnemy : MonoBehaviour
         }
     }
 
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(transformParent.position, pathNodes[targetNode].position);
