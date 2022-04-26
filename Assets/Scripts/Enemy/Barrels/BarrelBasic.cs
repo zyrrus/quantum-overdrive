@@ -20,7 +20,7 @@ public class BarrelBasic : AbstractBarrel
             newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity, bulletParent);
             bullets.Add(newBullet);
             newBullet.SetActive(false);
-            Debug.Log(newBullet.name);
+            // Debug.Log(newBullet.name);
         }
         bulletsSetup = true;
     }
