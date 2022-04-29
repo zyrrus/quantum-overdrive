@@ -17,8 +17,12 @@ public class PlayerState : MonoBehaviour
     private PlayerFlags pf;
     private Movement movement;
     private Dash dash;
+    private Jump jump;
 
     private bool isFacingRight = true;
+    [SerializeField] private float wallPityTime;
+    private Timer wallPityTimer;
+
 
 
     private void Awake()
@@ -26,10 +30,16 @@ public class PlayerState : MonoBehaviour
         pf = GetComponent<PlayerFlags>();
         movement = GetComponent<Movement>();
         dash = GetComponent<Dash>();
+        jump = GetComponent<Jump>();
+
+        wallPityTimer = new Timer(wallPityTime);
+
     }
 
     private void Update()
     {
+        if (!wallPityTimer.isOver) wallPityTimer.Tick();
+
         UpdateInputs();
         currentState = UpdateState();
 
@@ -64,7 +74,7 @@ public class PlayerState : MonoBehaviour
     private void UpdateInputs()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
-        didJump = Input.GetAxisRaw("Jump") != 0;
+        didJump = Input.GetButtonDown("Jump");
         didDash = Input.GetMouseButtonDown(0);
     }
 
@@ -72,15 +82,19 @@ public class PlayerState : MonoBehaviour
     {
         if (currentState == PState.Dead) return PState.Dead;
         if (didDash && pf.CanDash()) return PState.Dash;
-        if (didJump && pf.CanJump()) return PState.Jump;
-        if (pf.IsFalling()) return PState.Fall;
+        if (didJump && pf.CanJump(moveInput)) return PState.Jump;
+        if (pf.IsFalling() && !pf.MovingIntoWall(moveInput)) return PState.Fall;
         if (moveInput != 0)
         {
-            if (pf.CanWalk())
-                return PState.Walk;
             if (pf.MovingIntoWall(moveInput))
+            {
+                wallPityTimer.Reset();
                 return PState.Wall;
+            }
+            if (!wallPityTimer.isOver) return PState.Wall;
+            if (pf.CanWalk()) return PState.Walk;
         }
+        if (!wallPityTimer.isOver) return PState.Wall;
         return PState.Idle;
     }
 
@@ -98,22 +112,28 @@ public class PlayerState : MonoBehaviour
 
     private void JumpState()
     {
-        // Movement.OnJump(moveinput), animate
+        if (pf.MovingIntoWall(moveInput) && !pf.IsGrounded())
+            jump.OnWallJump(moveInput);
+        else jump.OnJump(moveInput);
+        // animate
     }
 
     private void FallState()
     {
-        // Movement.OnFall(moveinput), animate
+        jump.OnFall(moveInput);
+        // animate
     }
 
     private void WallState()
     {
-        // Movement.OnWallSlide(), animate
+        jump.OnWallSlide();
+        // animate
     }
 
     private void DashState()
     {
         dash.OnDash();
+        pf.ResetDashTimer();
         // animate
     }
 
@@ -123,3 +143,10 @@ public class PlayerState : MonoBehaviour
     }
 
 }
+
+
+/*
+    On player collision, check for obstacle tag
+    if player not dashing, die
+    else check for bounceable/breakable and act accordingly
+*/

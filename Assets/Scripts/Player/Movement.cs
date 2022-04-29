@@ -8,7 +8,8 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
 
     // Player Parameters
-    [SerializeField] private float maxMoveSpeed;
+    [SerializeField] private float _maxMoveSpeed;
+    public float maxMoveSpeed { get => _maxMoveSpeed; private set { _maxMoveSpeed = value; } }
     [SerializeField] private float stopSpeed;
     [SerializeField] private float acceleration;
 

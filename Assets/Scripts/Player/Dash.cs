@@ -15,9 +15,7 @@ public class Dash : MonoBehaviour
 
     public void OnDash()
     {
-        Debug.Log("DASHED");
         Vector2 dir = new Vector2(Mathf.Sign(rb.velocity.x), 0);
-
         rb.AddForce(dir * dashForce, ForceMode2D.Impulse);
     }
 }
