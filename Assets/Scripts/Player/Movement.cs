@@ -8,7 +8,6 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
 
     // Player Parameters
-    [SerializeField] private float forceScale;
     [SerializeField] private float maxMoveSpeed;
     [SerializeField] private float stopSpeed;
     [SerializeField] private float acceleration;
@@ -19,21 +18,21 @@ public class Movement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        maxMoveSpeed *= forceScale;
-        acceleration *= forceScale;
     }
 
-    public void Idle()
+    public void OnIdle()
     {
         Vector2 vel = rb.velocity;
         vel.x = Mathf.MoveTowards(vel.x, 0, stopSpeed * Time.deltaTime);
         rb.velocity = vel;
     }
 
-    public void Move(float direction)
+    public void OnMove(float direction)
     {
         float targetSpeed = direction;
 
+        // Accelerate up to max speed, but maintain 
+        // velocity if higher than max
         if (Mathf.Abs(rb.velocity.x) > maxMoveSpeed)
         {
             maxActiveSpeed = Mathf.Abs(rb.velocity.x);
@@ -41,11 +40,12 @@ public class Movement : MonoBehaviour
         }
         else targetSpeed *= maxMoveSpeed;
 
-        if (direction * rb.velocity.x < 0) Idle();
+        // When changing directions, idle until stopped
+        if (direction * rb.velocity.x < 0) OnIdle();
         else
         {
-            float diffFromMax = targetSpeed - rb.velocity.x;
-            rb.AddForce(Vector2.right * diffFromMax * Time.deltaTime);
+            float accel = (Mathf.Abs(rb.velocity.x) >= Mathf.Abs(targetSpeed)) ? 0 : acceleration * Mathf.Sign(targetSpeed);
+            rb.AddForce(Vector2.right * accel * Time.deltaTime);
         }
 
     }

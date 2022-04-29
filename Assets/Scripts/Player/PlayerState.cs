@@ -16,6 +16,7 @@ public class PlayerState : MonoBehaviour
     // References
     private PlayerFlags pf;
     private Movement movement;
+    private Dash dash;
 
     private bool isFacingRight = true;
 
@@ -24,9 +25,10 @@ public class PlayerState : MonoBehaviour
     {
         pf = GetComponent<PlayerFlags>();
         movement = GetComponent<Movement>();
+        dash = GetComponent<Dash>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         UpdateInputs();
         currentState = UpdateState();
@@ -84,34 +86,35 @@ public class PlayerState : MonoBehaviour
 
     private void IdleState()
     {
-        movement.Idle();
+        movement.OnIdle();
         // Animate
     }
 
     private void WalkState()
     {
-        movement.Move(moveInput);
+        movement.OnMove(moveInput);
         // Animate
     }
 
     private void JumpState()
     {
-        // Movement.Jump(moveinput), animate
+        // Movement.OnJump(moveinput), animate
     }
 
     private void FallState()
     {
-        // Movement.Fall(moveinput), animate
+        // Movement.OnFall(moveinput), animate
     }
 
     private void WallState()
     {
-        // Movement.WallSlide(), animate
+        // Movement.OnWallSlide(), animate
     }
 
     private void DashState()
     {
-        // Dash.Dash(), animate
+        dash.OnDash();
+        // animate
     }
 
     private void DeadState()

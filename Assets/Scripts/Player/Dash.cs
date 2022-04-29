@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Dash : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Rigidbody2D rb;
+
+    [SerializeField] private float dashForce;
+
+    private void Awake()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnDash()
     {
-        
+        Debug.Log("DASHED");
+        Vector2 dir = new Vector2(Mathf.Sign(rb.velocity.x), 0);
+
+        rb.AddForce(dir * dashForce, ForceMode2D.Impulse);
     }
 }
