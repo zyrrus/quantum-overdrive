@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashForce: 6
+  dashEffectiveTime: 0.54
 --- !u!114 &210063616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +232,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474d5846c48d9bb46bc54edbfd648798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   wallPityTime: 0.21
+  timer: 
 --- !u!61 &210063619
 BoxCollider2D:
   m_ObjectHideFlags: 0
