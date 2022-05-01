@@ -20,7 +20,7 @@ public class GroundedState : PlayerBaseState
     public override void CheckSwitchStates()
     {
         if (context.IsFalling) SwitchState(factory.Fall());
-        else if ((!context.IsGrounded && context.IsDashing)) SwitchState(factory.Rise());
+        else if ((!context.IsGrounded && context.IsDashPressed)) SwitchState(factory.Rise());
         else if (context.IsJumping || (context.IsJumpPressed && !context.RequireNewJumpPress))
             SwitchState(factory.Jump());
     }
