@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class GroundedState : PlayerBaseState
+public class FallState : PlayerBaseState
 {
-    public GroundedState(PlayerStateMachine context, PlayerStateFactory factory)
+    public FallState(PlayerStateMachine context, PlayerStateFactory factory)
         : base(context, factory)
     {
         isRootState = true;
@@ -11,8 +11,7 @@ public class GroundedState : PlayerBaseState
     public override void EnterState()
     {
         InitSubState();
-        Debug.Log("Grounded");
-        context.IsJumping = false;
+        Debug.Log("Fall");
     }
 
     public override void UpdateState() => CheckSwitchStates();
@@ -21,9 +20,9 @@ public class GroundedState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (context.IsJumpPressed && !context.RequireNewJumpPress)
+        if (context.IsGrounded) SwitchState(factory.Grounded());
+        else if (context.IsJumpPressed && !context.RequireNewJumpPress)
             SwitchState(factory.Jump());
-        else if (context.IsFalling) SwitchState(factory.Fall());
     }
 
     public override void InitSubState()

@@ -1,18 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class AbstractPlayerState : MonoBehaviour
+public abstract class PlayerBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    protected PlayerStateMachine context;
+    protected PlayerStateFactory factory;
+    protected PlayerBaseState currentSuperState;
+    protected PlayerBaseState currentSubState;
+    protected bool isRootState = false;
+
+    public PlayerBaseState(PlayerStateMachine context, PlayerStateFactory factory)
     {
-        
+        this.context = context;
+        this.factory = factory;
     }
 
-    // Update is called once per frame
-    void Update()
+    public abstract void EnterState();
+    public abstract void UpdateState();
+    public abstract void ExitState();
+    public abstract void CheckSwitchStates();
+    public abstract void InitSubState();
+
+    public void UpdateStates()
     {
-        
+        UpdateState();
+        if (currentSubState != null)
+            currentSubState.UpdateState();
+    }
+
+    protected void SwitchState(PlayerBaseState newState)
+    {
+        ExitState();
+        newState.EnterState();
+
+        if (isRootState)
+            context.CurrentState = newState;
+        else if (currentSuperState != null)
+            currentSuperState.SetSubState(newState);
+
+    }
+
+    protected void SetSuperState(PlayerBaseState newSuperState)
+    {
+        currentSuperState = newSuperState;
+    }
+
+    protected void SetSubState(PlayerBaseState newSubState)
+    {
+        currentSubState = newSubState;
+        newSubState.SetSuperState(this);
     }
 }
