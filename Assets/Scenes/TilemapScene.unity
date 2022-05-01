@@ -172,17 +172,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb978eaa224c6864495ab4bb32b7ef31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  softMaxSpeed: 9.9
+  mainCamera: {fileID: 862426185}
+  softMaxSpeed: 10
   bonusMaxSpeed: 18
   acceleration: 500
   stoppingSpeed: 60
   jumpForce: 8.2
   jumpForceBonus: 10
+  dashForce: 10
+  dashRecoilForce: 0
+  dashEffectiveTime: 0.5
+  dashCooldownTime: 3
   isGrounded: 0
   isFalling: 0
   isJumping: 0
   isDashing: 0
   requireNewJumpPress: 0
+  requireNewDashPress: 0
+  facingDirection: 1
 --- !u!114 &210063615
 MonoBehaviour:
   m_ObjectHideFlags: 0

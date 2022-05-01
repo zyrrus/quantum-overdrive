@@ -12,7 +12,6 @@ public class GroundedState : PlayerBaseState
     {
         InitSubState();
         context.IsJumping = false;
-        Debug.Log("Grounded");
     }
 
     public override void UpdateState() => CheckSwitchStates();

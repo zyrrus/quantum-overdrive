@@ -37,9 +37,18 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""DashDirection"",
+                    ""name"": ""DashAbsDirection"",
                     ""type"": ""Value"",
                     ""id"": ""ebeb7477-505a-48f8-be09-e2f3e477a4e4"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""DashRelDirection"",
+                    ""type"": ""Value"",
+                    ""id"": ""3df759b9-9a1c-4636-822e-a72f1a65b954"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -133,23 +142,12 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7db4663e-2f4d-4c24-8478-6f74aef404a8"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""id"": ""5b973585-026c-47ba-84e3-1e54ac28b717"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""DashDirection"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""27225889-ed7b-4ed0-a812-5a00ed31b833"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""DashDirection"",
+                    ""action"": ""DashAbsDirection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -188,6 +186,17 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""e5ae3dd2-bf79-4b38-a09d-7651fd464816"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""86f58091-22a3-49a4-9153-fc03329156db"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -205,6 +214,17 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""664f5ce7-9233-4a9a-aa1b-84e0876e779c"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DashRelDirection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -793,7 +813,8 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_DashDirection = m_Player.FindAction("DashDirection", throwIfNotFound: true);
+        m_Player_DashAbsDirection = m_Player.FindAction("DashAbsDirection", throwIfNotFound: true);
+        m_Player_DashRelDirection = m_Player.FindAction("DashRelDirection", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         // UI
@@ -868,7 +889,8 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_DashDirection;
+    private readonly InputAction m_Player_DashAbsDirection;
+    private readonly InputAction m_Player_DashRelDirection;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Jump;
     public struct PlayerActions
@@ -876,7 +898,8 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         private @PlayerInputAction m_Wrapper;
         public PlayerActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
-        public InputAction @DashDirection => m_Wrapper.m_Player_DashDirection;
+        public InputAction @DashAbsDirection => m_Wrapper.m_Player_DashAbsDirection;
+        public InputAction @DashRelDirection => m_Wrapper.m_Player_DashRelDirection;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -891,9 +914,12 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                @DashDirection.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashDirection;
-                @DashDirection.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashDirection;
-                @DashDirection.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashDirection;
+                @DashAbsDirection.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashAbsDirection;
+                @DashAbsDirection.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashAbsDirection;
+                @DashAbsDirection.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashAbsDirection;
+                @DashRelDirection.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashRelDirection;
+                @DashRelDirection.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashRelDirection;
+                @DashRelDirection.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashRelDirection;
                 @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
@@ -907,9 +933,12 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @DashDirection.started += instance.OnDashDirection;
-                @DashDirection.performed += instance.OnDashDirection;
-                @DashDirection.canceled += instance.OnDashDirection;
+                @DashAbsDirection.started += instance.OnDashAbsDirection;
+                @DashAbsDirection.performed += instance.OnDashAbsDirection;
+                @DashAbsDirection.canceled += instance.OnDashAbsDirection;
+                @DashRelDirection.started += instance.OnDashRelDirection;
+                @DashRelDirection.performed += instance.OnDashRelDirection;
+                @DashRelDirection.canceled += instance.OnDashRelDirection;
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
@@ -1073,7 +1102,8 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnDashDirection(InputAction.CallbackContext context);
+        void OnDashAbsDirection(InputAction.CallbackContext context);
+        void OnDashRelDirection(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
     }

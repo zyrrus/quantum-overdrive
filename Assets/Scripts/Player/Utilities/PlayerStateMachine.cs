@@ -8,6 +8,7 @@ public class PlayerStateMachine : MonoBehaviour
     private PlayerInputAction playerInputAction;
     private Rigidbody2D rb;
     private BoxCollider2D playerCollider;
+    [SerializeField] private Camera mainCamera;
     // rotation parent
     // animator
 
@@ -27,6 +28,8 @@ public class PlayerStateMachine : MonoBehaviour
     private PlayerStateFactory states;
 
     private float currentMaxSpeed = 0;
+    private Timer dashEffectiveTimer;
+    private Timer dashCooldownTimer;
 
 
     /* Parameters */
@@ -41,7 +44,11 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float jumpForceBonus;
 
-    // [Header("Dash")]
+    [Header("Dash")]
+    [SerializeField] private float dashForce;
+    [SerializeField] private float dashRecoilForce;
+    [SerializeField] private float dashEffectiveTime;
+    [SerializeField] private float dashCooldownTime;
 
 
     /* Flags */
@@ -51,12 +58,11 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private bool isJumping;
     [SerializeField] private bool isDashing;
     [SerializeField] private bool requireNewJumpPress;
-    // facingDirection
-
+    [SerializeField] private bool requireNewDashPress;
+    [SerializeField] private float facingDirection = 1;
 
 
     /* Getters + Setters */
-    /*#region*/
 
     // References
     public Rigidbody2D Rb { get => rb; }
@@ -66,10 +72,13 @@ public class PlayerStateMachine : MonoBehaviour
     public Vector2 DashInput { get => currentDashInput; }
     public bool IsMovementPressed { get => isMovementPressed; }
     public bool IsJumpPressed { get => isJumpPressed; }
+    public bool IsDashPressed { get => isDashPressed; }
 
     // Status
     public PlayerBaseState CurrentState { get => currentState; set => currentState = value; }
     public float CurrentMaxSpeed { get => currentMaxSpeed; set => currentMaxSpeed = value; }
+    public Timer DashEffectiveTimer { get => dashEffectiveTimer; }
+    public Timer DashCooldownTimer { get => dashCooldownTimer; }
 
     // Parameters
     public float SoftMaxSpeed { get => softMaxSpeed; }
@@ -78,19 +87,19 @@ public class PlayerStateMachine : MonoBehaviour
     public float StoppingSpeed { get => stoppingSpeed; }
     public float JumpForce { get => jumpForce; }
     public float JumpForceBonus { get => jumpForceBonus; }
+    public float DashForce { get => dashForce; }
+    public float DashRecoilForce { get => dashRecoilForce; }
 
     // Flags
     public bool IsGrounded { get => isGrounded; }
     public bool IsFalling { get => isFalling; }
     public bool IsJumping { get => isJumping; set => isJumping = value; }
     public bool RequireNewJumpPress { get => requireNewJumpPress; set => requireNewJumpPress = value; }
+    public bool RequireNewDashPress { get => requireNewDashPress; set => requireNewDashPress = value; }
+    public float FacingDirection { get => facingDirection; }
 
 
-    /* #endregion */
-
-
-    /* MonoBehaviour methods */
-    /*#region*/
+    /* MonoBehaviour */
 
     private void Awake()
     {
@@ -100,13 +109,13 @@ public class PlayerStateMachine : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
 
-
-        // Initialize states
+        // Initialize status
 
         states = new PlayerStateFactory(this);
         currentState = states.Grounded();
         currentState.EnterState();
-
+        dashEffectiveTimer = new Timer(dashEffectiveTime);
+        dashCooldownTimer = new Timer(dashCooldownTime);
 
         // Tie input handlers to PlayerInputAction
 
@@ -114,9 +123,12 @@ public class PlayerStateMachine : MonoBehaviour
         playerInputAction.Player.Move.performed += OnMoveInput;
         playerInputAction.Player.Move.canceled += OnMoveInput;
 
-        playerInputAction.Player.DashDirection.started += OnDashInput;
-        playerInputAction.Player.DashDirection.performed += OnDashInput;
-        playerInputAction.Player.DashDirection.canceled += OnDashInput;
+        playerInputAction.Player.DashAbsDirection.started += OnDashAbsInput;
+        playerInputAction.Player.DashAbsDirection.performed += OnDashAbsInput;
+        playerInputAction.Player.DashAbsDirection.canceled += OnDashAbsInput;
+        playerInputAction.Player.DashRelDirection.started += OnDashRelInput;
+        playerInputAction.Player.DashRelDirection.performed += OnDashRelInput;
+        playerInputAction.Player.DashRelDirection.canceled += OnDashRelInput;
 
         playerInputAction.Player.Dash.started += OnDash;
         playerInputAction.Player.Dash.canceled += OnDash;
@@ -126,16 +138,28 @@ public class PlayerStateMachine : MonoBehaviour
     }
 
     private void OnEnable() => playerInputAction.Enable();
+
     private void OnDisable() => playerInputAction.Disable();
 
     private void Update()
     {
+        // Update flags
         UpdateIsGrounded();
-        isFalling = !isGrounded && rb.velocity.y < 0;
+        UpdateIsFalling();
+        UpdateFacingDirection();
+
+        // Update timers
+        if (!dashCooldownTimer.isOver) dashCooldownTimer.Tick();
 
         currentState.UpdateStates();
     }
-    /*#endregion*/
+
+    private void OnDrawGizmos()
+    {
+        Vector3 dashInput3 = new Vector3(currentDashInput.x, currentDashInput.y, 0);
+        Gizmos.DrawLine(transform.position, transform.position + dashInput3);
+    }
+
 
     /* Flag utilities */
 
@@ -154,24 +178,45 @@ public class PlayerStateMachine : MonoBehaviour
         isGrounded = hitLeft || hitRight;
     }
 
+    private void UpdateIsFalling() => isFalling = !isGrounded && rb.velocity.y < 0;
+
+    private void UpdateFacingDirection()
+    {
+        // If x vel == 0, let move input take care of it
+        if (rb.velocity.x < -0.1f)
+            facingDirection = -1;
+        else if (rb.velocity.x > 0.1f)
+            facingDirection = 1;
+    }
+
 
     /* Input handlers */
-    /*#region*/
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
         currentMovementInput = context.ReadValue<float>();
         isMovementPressed = (currentMovementInput != 0);
+        if (isMovementPressed) facingDirection = currentMovementInput;
     }
 
-    public void OnDashInput(InputAction.CallbackContext context)
+    public void OnDashAbsInput(InputAction.CallbackContext context)
     {
-        currentDashInput = context.ReadValue<Vector2>();
+        Vector3 screenPos = mainCamera.WorldToScreenPoint(transform.position);
+        Vector2 playerPos = new Vector2(screenPos.x, screenPos.y);
+        Vector2 deltaPos = context.ReadValue<Vector2>() - playerPos;
+
+        currentDashInput = deltaPos.normalized;
+    }
+
+    public void OnDashRelInput(InputAction.CallbackContext context)
+    {
+        currentDashInput = context.ReadValue<Vector2>().normalized;
     }
 
     public void OnDash(InputAction.CallbackContext context)
     {
         isDashPressed = context.ReadValueAsButton();
+        requireNewDashPress = false;
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -179,5 +224,4 @@ public class PlayerStateMachine : MonoBehaviour
         isJumpPressed = context.ReadValueAsButton();
         requireNewJumpPress = false;
     }
-    /*#endregion*/
 }

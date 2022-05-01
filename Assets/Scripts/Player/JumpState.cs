@@ -10,9 +10,7 @@ public class JumpState : PlayerBaseState
 
     public override void EnterState()
     {
-
         InitSubState();
-        Debug.Log("Jump");
         HandleJump();
     }
 

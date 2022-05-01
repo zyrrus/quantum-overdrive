@@ -15,9 +15,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "DashDirection",
+                    "name": "DashAbsDirection",
                     "type": "Value",
                     "id": "ebeb7477-505a-48f8-be09-e2f3e477a4e4",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "DashRelDirection",
+                    "type": "Value",
+                    "id": "3df759b9-9a1c-4636-822e-a72f1a65b954",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -111,23 +120,12 @@
                 },
                 {
                     "name": "",
-                    "id": "7db4663e-2f4d-4c24-8478-6f74aef404a8",
-                    "path": "<Mouse>/delta",
+                    "id": "5b973585-026c-47ba-84e3-1e54ac28b717",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "DashDirection",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "27225889-ed7b-4ed0-a812-5a00ed31b833",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "DashDirection",
+                    "action": "DashAbsDirection",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -166,6 +164,17 @@
                 },
                 {
                     "name": "",
+                    "id": "e5ae3dd2-bf79-4b38-a09d-7651fd464816",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "86f58091-22a3-49a4-9153-fc03329156db",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -183,6 +192,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "664f5ce7-9233-4a9a-aa1b-84e0876e779c",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "DashRelDirection",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

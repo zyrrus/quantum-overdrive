@@ -11,8 +11,7 @@ public class FallState : PlayerBaseState
     public override void EnterState()
     {
         InitSubState();
-        // context.IsJumping = false;
-        Debug.Log("Fall");
+        context.IsJumping = false;
     }
 
     public override void UpdateState() => CheckSwitchStates();
