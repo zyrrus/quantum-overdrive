@@ -19,7 +19,6 @@ public class JumpState : PlayerBaseState
     public override void UpdateState() => CheckSwitchStates();
     public override void ExitState()
     {
-        context.IsJumping = false;
         if (context.IsJumpPressed) context.RequireNewJumpPress = true;
     }
 
@@ -47,7 +46,6 @@ public class JumpState : PlayerBaseState
 
         float scaledJumpForce = Mathf.Clamp(jumpScale, context.JumpForce, maxJumpForce);
 
-        Debug.Log("scaled jump force: " + scaledJumpForce);
         context.Rb.AddForce(Vector2.up * scaledJumpForce, ForceMode2D.Impulse);
     }
 }

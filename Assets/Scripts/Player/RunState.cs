@@ -26,8 +26,6 @@ public class RunState : PlayerBaseState
 
     private void HandleRun()
     {
-        // if (context.MovementInput == 0) return;
-
         float curXVel = context.Rb.velocity.x;
         if (curXVel * context.MovementInput < 0)
             context.Rb.AddForce(Vector2.right * (context.Acceleration / 2) * context.MovementInput * Time.deltaTime, ForceMode2D.Impulse);

@@ -130,9 +130,10 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Update()
     {
-        currentState.UpdateStates();
         UpdateIsGrounded();
-        isFalling = rb.velocity.y < 0;
+        isFalling = !isGrounded && rb.velocity.y < 0;
+
+        currentState.UpdateStates();
     }
     /*#endregion*/
 
@@ -144,8 +145,8 @@ public class PlayerStateMachine : MonoBehaviour
         Vector3 leftCorner = playerCollider.bounds.min + offset;
         Vector3 rightCorner = leftCorner + (Vector3.right * playerCollider.bounds.size.x) + offset;
 
-        bool hitLeft = Physics2D.Raycast(leftCorner, Vector2.down, 0.1f).collider != null;
-        bool hitRight = Physics2D.Raycast(rightCorner, Vector2.down, 0.1f).collider != null;
+        bool hitLeft = Physics2D.Raycast(leftCorner, Vector2.down, 0.01f).collider != null;
+        bool hitRight = Physics2D.Raycast(rightCorner, Vector2.down, 0.01f).collider != null;
 
         // Debug.DrawRay(leftCorner, Vector2.down * 0.1f, Color.red, 2);
         // Debug.DrawRay(rightCorner, Vector2.down * 0.1f, Color.blue, 2);

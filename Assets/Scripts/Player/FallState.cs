@@ -11,6 +11,7 @@ public class FallState : PlayerBaseState
     public override void EnterState()
     {
         InitSubState();
+        // context.IsJumping = false;
         Debug.Log("Fall");
     }
 
@@ -21,8 +22,6 @@ public class FallState : PlayerBaseState
     public override void CheckSwitchStates()
     {
         if (context.IsGrounded) SwitchState(factory.Grounded());
-        else if (context.IsJumpPressed && !context.RequireNewJumpPress)
-            SwitchState(factory.Jump());
     }
 
     public override void InitSubState()
