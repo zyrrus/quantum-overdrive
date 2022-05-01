@@ -14,6 +14,8 @@ public class Jump : MonoBehaviour
     private float originalGravScale;
     [SerializeField] private float slidingGravScale;
 
+    private bool isJumping = false;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,7 +25,10 @@ public class Jump : MonoBehaviour
 
     public void OnJump(float direction)
     {
+        if (isJumping) return;
+
         ResetGravity();
+        isJumping = true;
 
         float maxJumpForce = jumpForce * maxJumpMultiplier;
         float maxJumpSpeed = movement.maxMoveSpeed * maxSpeedMultiplier;
@@ -38,11 +43,22 @@ public class Jump : MonoBehaviour
     public void OnFall(float direction)
     {
         ResetGravity();
+        isJumping = false;
+
+        movement.OnAirMove(direction);
     }
 
     public void OnWallJump(float direction)
     {
+        if (isJumping) return;
+
         ResetGravity();
+        isJumping = true;
+
+        Vector2 vel = rb.velocity;
+        vel.y = 0;
+        rb.velocity = vel;
+        OnJump(direction);
     }
 
     public void OnWallSlide()
@@ -51,4 +67,6 @@ public class Jump : MonoBehaviour
             rb.gravityScale = slidingGravScale;
     }
     public void ResetGravity() => rb.gravityScale = originalGravScale;
+
+    public bool IsJumping() => isJumping;
 }

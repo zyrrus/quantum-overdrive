@@ -48,6 +48,23 @@ public class Movement : MonoBehaviour
             float accel = (Mathf.Abs(rb.velocity.x) >= Mathf.Abs(targetSpeed)) ? 0 : acceleration * Mathf.Sign(targetSpeed);
             rb.AddForce(Vector2.right * accel * Time.deltaTime);
         }
+    }
+
+    public void OnAirMove(float direction)
+    {
+        float targetSpeed = direction;
+
+        // Accelerate up to max speed, but maintain 
+        // velocity if higher than max
+        if (Mathf.Abs(rb.velocity.x) > maxMoveSpeed)
+        {
+            maxActiveSpeed = Mathf.Abs(rb.velocity.x);
+            targetSpeed *= maxActiveSpeed;
+        }
+        else targetSpeed *= maxMoveSpeed;
+
+        float accel = (Mathf.Abs(rb.velocity.x) >= Mathf.Abs(targetSpeed)) ? 0 : acceleration * Mathf.Sign(targetSpeed);
+        rb.AddForce(Vector2.right * accel * Time.deltaTime);
 
     }
 }

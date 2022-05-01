@@ -6,7 +6,7 @@ public class PlayerState : MonoBehaviour
 {
     // State
     public enum PState { Idle, Walk, Jump, Fall, Wall, Dash, Dead }
-    private PState currentState = PState.Idle;
+    [SerializeField] private PState currentState = PState.Idle; // Temp serialized
 
     // Inputs
     private float moveInput = 0;
@@ -23,6 +23,7 @@ public class PlayerState : MonoBehaviour
     [SerializeField] private float wallPityTime;
     private Timer wallPityTimer;
 
+    public string timer; // Temp
 
 
     private void Awake()
@@ -38,6 +39,8 @@ public class PlayerState : MonoBehaviour
 
     private void Update()
     {
+        timer = wallPityTimer.ToString();
+
         if (!wallPityTimer.isOver) wallPityTimer.Tick();
 
         UpdateInputs();
@@ -81,8 +84,8 @@ public class PlayerState : MonoBehaviour
     private PState UpdateState()
     {
         if (currentState == PState.Dead) return PState.Dead;
-        if (didDash && pf.CanDash()) return PState.Dash;
-        if (didJump && pf.CanJump(moveInput)) return PState.Jump;
+        if (dash.IsDashing() || (didDash && pf.CanDash())) return PState.Dash;
+        if (jump.IsJumping() || (didJump && pf.CanJump(moveInput))) return PState.Jump;
         if (pf.IsFalling() && !pf.MovingIntoWall(moveInput)) return PState.Fall;
         if (moveInput != 0)
         {
