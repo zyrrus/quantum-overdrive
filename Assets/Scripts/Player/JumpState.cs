@@ -23,7 +23,7 @@ public class JumpState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (context.IsGrounded) SwitchState(factory.Grounded());
+        if (!context.IsJumping && context.IsGrounded) SwitchState(factory.Grounded());
         else if (context.IsFalling) SwitchState(factory.Fall());
     }
 
@@ -36,6 +36,10 @@ public class JumpState : PlayerBaseState
     private void HandleJump()
     {
         context.IsJumping = true;
+
+        Vector2 vel = context.Rb.velocity;
+        vel.y = 0;
+        context.Rb.velocity = vel;
 
         float maxJumpForce = context.JumpForce * context.JumpForceBonus;
 

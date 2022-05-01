@@ -25,9 +25,16 @@ public abstract class PlayerBaseState
             currentSubState.UpdateState();
     }
 
-    protected void SwitchState(PlayerBaseState newState)
+    public void ExitStates()
     {
         ExitState();
+        if (currentSubState != null)
+            currentSubState.ExitState();
+    }
+
+    protected void SwitchState(PlayerBaseState newState)
+    {
+        ExitStates();
         newState.EnterState();
 
         if (isRootState)

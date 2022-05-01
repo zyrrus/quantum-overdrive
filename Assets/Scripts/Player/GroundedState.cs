@@ -11,7 +11,6 @@ public class GroundedState : PlayerBaseState
     public override void EnterState()
     {
         InitSubState();
-        context.IsJumping = false;
     }
 
     public override void UpdateState() => CheckSwitchStates();
@@ -20,9 +19,9 @@ public class GroundedState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (context.IsJumping || (context.IsJumpPressed && !context.RequireNewJumpPress))
+        if (context.IsFalling || (!context.IsGrounded && context.IsDashing)) SwitchState(factory.Fall());
+        else if (context.IsJumping || (context.IsJumpPressed && !context.RequireNewJumpPress))
             SwitchState(factory.Jump());
-        else if (context.IsFalling) SwitchState(factory.Fall());
     }
 
     public override void InitSubState()

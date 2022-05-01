@@ -94,6 +94,7 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsGrounded { get => isGrounded; }
     public bool IsFalling { get => isFalling; }
     public bool IsJumping { get => isJumping; set => isJumping = value; }
+    public bool IsDashing { get => isDashing; set => isDashing = value; }
     public bool RequireNewJumpPress { get => requireNewJumpPress; set => requireNewJumpPress = value; }
     public bool RequireNewDashPress { get => requireNewDashPress; set => requireNewDashPress = value; }
     public float FacingDirection { get => facingDirection; }
