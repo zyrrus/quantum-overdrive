@@ -11,7 +11,7 @@ public class TempUILogState : MonoBehaviour
     private void Awake() => psm = GetComponent<PlayerStateMachine>();
     private void Update()
     {
-        string state = psm.CurrentState.ToString();
+        string state = psm.CurrentState.Name();
         text.text = state;
     }
 }

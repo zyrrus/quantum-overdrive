@@ -47,4 +47,11 @@ public abstract class PlayerBaseState
         currentSubState = newSubState;
         newSubState.SetSuperState(this);
     }
+
+    public string Name()
+    {
+        if (currentSubState != null)
+            return $"{ToString()}: {currentSubState.Name()}";
+        return ToString();
+    }
 }
