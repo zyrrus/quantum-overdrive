@@ -23,7 +23,9 @@ public class FallState : PlayerBaseState
 
     public override void InitSubState()
     {
-        if (!context.IsMovementPressed) SetSubState(factory.Idle());
+        if (context.IsDashing || (context.IsDashPressed && !context.RequireNewDashPress && context.DashCooldownTimer.isOver))
+            SetSubState(factory.Dash());
+        else if (!context.IsMovementPressed) SetSubState(factory.Idle());
         else SetSubState(factory.Run());
     }
 }
