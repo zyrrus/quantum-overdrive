@@ -9,6 +9,7 @@ public class PlayerStateMachine : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D playerCollider;
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private LayerMask groundLayer;
     // rotation parent
     // animator
 
@@ -158,10 +159,12 @@ public class PlayerStateMachine : MonoBehaviour
         // Update flags - Maybe want to call these in Get
         UpdateIsGrounded();
         UpdateIsFalling();
+        UpdateIsDashing();
         UpdateIsTouchingWall();
         UpdateFacingDirection();
 
         // Update timers
+        if (!dashEffectiveTimer.isOver) dashEffectiveTimer.Tick();
         if (!dashCooldownTimer.isOver) dashCooldownTimer.Tick();
 
         currentState.UpdateStates();
@@ -182,8 +185,8 @@ public class PlayerStateMachine : MonoBehaviour
         Vector3 leftCorner = playerCollider.bounds.min + offset;
         Vector3 rightCorner = leftCorner + (Vector3.right * playerCollider.bounds.size.x);
 
-        bool hitLeft = Physics2D.Raycast(leftCorner, Vector2.down, 0.01f).collider != null;
-        bool hitRight = Physics2D.Raycast(rightCorner, Vector2.down, 0.01f).collider != null;
+        bool hitLeft = Physics2D.Raycast(leftCorner, Vector2.down, 0.01f, groundLayer.value).collider != null;
+        bool hitRight = Physics2D.Raycast(rightCorner, Vector2.down, 0.01f, groundLayer.value).collider != null;
 
         Color left = (hitLeft) ? Color.green : Color.red;
         Color right = (hitRight) ? Color.green : Color.red;
@@ -213,7 +216,7 @@ public class PlayerStateMachine : MonoBehaviour
 
             Debug.DrawRay(rayStart, Vector2.right * Mathf.Sign(facingDirection), Color.blue, 0.001f);
 
-            if (Physics2D.Raycast(rayStart, Vector2.right * Mathf.Sign(facingDirection), 0.1f).collider != null)
+            if (Physics2D.Raycast(rayStart, Vector2.right * Mathf.Sign(facingDirection), 0.1f, groundLayer.value).collider != null)
             {
                 isTouchingWall = true;
                 return;
@@ -232,6 +235,10 @@ public class PlayerStateMachine : MonoBehaviour
             facingDirection = 1;
     }
 
+    private void UpdateIsDashing()
+    {
+        if (dashEffectiveTimer.isOver) isDashing = false;
+    }
 
     /* Input handlers */
 
