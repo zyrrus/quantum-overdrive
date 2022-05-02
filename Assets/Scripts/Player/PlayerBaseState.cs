@@ -64,7 +64,6 @@ public abstract class PlayerBaseState
     {
         currentSubState = newSubState;
         newSubState.SetSuperState(this);
-        // newSubState.EnterStates();
     }
 
     public string Name()
