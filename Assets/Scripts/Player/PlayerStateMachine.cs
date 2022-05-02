@@ -11,6 +11,7 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform respawnPoint;
+    private LevelManager lm;
     // rotation parent
     // animator
 
@@ -121,6 +122,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerInputAction = new PlayerInputAction();
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
+        lm = FindObjectOfType<LevelManager>();
 
         // Initialize status
 
@@ -187,6 +189,9 @@ public class PlayerStateMachine : MonoBehaviour
         requireNewJumpPress = false;
         requireNewDashPress = false;
         isTouchingWall = false;
+
+        // Reset level
+        lm.ResetLevel();
 
         // Move to respawn point
         transform.position = respawnPoint.position;

@@ -17,7 +17,7 @@ public class ObstacleBase : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             EnemyCollision pc = other.gameObject.GetComponent<EnemyCollision>();
-            pc.OnHitPlayer(transform.position, true);
+            pc.OnHitPlayer(transform.position, isBouncy);
         }
     }
 
