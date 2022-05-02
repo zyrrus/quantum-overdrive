@@ -3,10 +3,7 @@ using UnityEngine;
 public class GroundedState : PlayerBaseState
 {
     public GroundedState(PlayerStateMachine context, PlayerStateFactory factory)
-        : base(context, factory)
-    {
-        isRootState = true;
-    }
+        : base(context, factory) => isRootState = true;
 
     public override void EnterState()
     {

@@ -31,6 +31,8 @@ public class PlayerStateMachine : MonoBehaviour
     private Timer dashEffectiveTimer;
     private Timer dashCooldownTimer;
 
+    private float originalGravityScale;
+
 
     /* Parameters */
 
@@ -50,6 +52,10 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private float dashEffectiveTime;
     [SerializeField] private float dashCooldownTime;
 
+    [Header("Wall Slide")]
+    [SerializeField] private float wallSlideGravityScale;
+
+
 
     /* Flags */
 
@@ -59,6 +65,7 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private bool isDashing;
     [SerializeField] private bool requireNewJumpPress;
     [SerializeField] private bool requireNewDashPress;
+    [SerializeField] private bool isTouchingWall;
     [SerializeField] private float facingDirection = 1;
 
 
@@ -79,6 +86,7 @@ public class PlayerStateMachine : MonoBehaviour
     public float CurrentMaxSpeed { get => currentMaxSpeed; set => currentMaxSpeed = value; }
     public Timer DashEffectiveTimer { get => dashEffectiveTimer; }
     public Timer DashCooldownTimer { get => dashCooldownTimer; }
+    public float OriginalGravityScale { get => originalGravityScale; }
 
     // Parameters
     public float SoftMaxSpeed { get => softMaxSpeed; }
@@ -89,6 +97,7 @@ public class PlayerStateMachine : MonoBehaviour
     public float JumpForceBonus { get => jumpForceBonus; }
     public float DashForce { get => dashForce; }
     public float DashRecoilForce { get => dashRecoilForce; }
+    public float WallSlideGravityScale { get => wallSlideGravityScale; }
 
     // Flags
     public bool IsGrounded { get => isGrounded; }
@@ -97,6 +106,7 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsDashing { get => isDashing; set => isDashing = value; }
     public bool RequireNewJumpPress { get => requireNewJumpPress; set => requireNewJumpPress = value; }
     public bool RequireNewDashPress { get => requireNewDashPress; set => requireNewDashPress = value; }
+    public bool IsTouchingWall { get => isTouchingWall; }
     public float FacingDirection { get => facingDirection; }
 
 
@@ -117,6 +127,7 @@ public class PlayerStateMachine : MonoBehaviour
         currentState.EnterState();
         dashEffectiveTimer = new Timer(dashEffectiveTime);
         dashCooldownTimer = new Timer(dashCooldownTime);
+        originalGravityScale = rb.gravityScale;
 
         // Tie input handlers to PlayerInputAction
 
@@ -144,9 +155,10 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Update()
     {
-        // Update flags
+        // Update flags - Maybe want to call these in Get
         UpdateIsGrounded();
         UpdateIsFalling();
+        UpdateIsTouchingWall();
         UpdateFacingDirection();
 
         // Update timers
@@ -168,18 +180,46 @@ public class PlayerStateMachine : MonoBehaviour
     {
         Vector3 offset = Vector3.down * 0.01f;
         Vector3 leftCorner = playerCollider.bounds.min + offset;
-        Vector3 rightCorner = leftCorner + (Vector3.right * playerCollider.bounds.size.x) + offset;
+        Vector3 rightCorner = leftCorner + (Vector3.right * playerCollider.bounds.size.x);
 
         bool hitLeft = Physics2D.Raycast(leftCorner, Vector2.down, 0.01f).collider != null;
         bool hitRight = Physics2D.Raycast(rightCorner, Vector2.down, 0.01f).collider != null;
 
-        // Debug.DrawRay(leftCorner, Vector2.down * 0.1f, Color.red, 2);
-        // Debug.DrawRay(rightCorner, Vector2.down * 0.1f, Color.blue, 2);
+        Color left = (hitLeft) ? Color.green : Color.red;
+        Color right = (hitRight) ? Color.green : Color.red;
+
+        Debug.DrawRay(leftCorner, Vector2.down * 0.01f, left, 0.001f);
+        Debug.DrawRay(rightCorner, Vector2.down * 0.01f, right, 0.001f);
 
         isGrounded = hitLeft || hitRight;
     }
 
     private void UpdateIsFalling() => isFalling = !isGrounded && rb.velocity.y < 0;
+
+    private void UpdateIsTouchingWall()
+    {
+        int numRays = 4;
+
+        float spaceBetweenRays = (playerCollider.bounds.size.y * 0.9f) / (numRays - 1);
+        Vector3 offset = (Vector3.right * Mathf.Sign(facingDirection) * 0.01f) + (0.05f * playerCollider.bounds.size.y * Vector3.down);
+        Vector3 topCorner = playerCollider.bounds.center + offset;
+        topCorner.x += Mathf.Sign(facingDirection) * playerCollider.bounds.extents.x;
+        topCorner.y += playerCollider.bounds.extents.y;
+
+        // Check the rays
+        for (int i = 0; i < numRays; i++)
+        {
+            Vector3 rayStart = topCorner + (i * spaceBetweenRays * Vector3.down);
+
+            Debug.DrawRay(rayStart, Vector2.right * Mathf.Sign(facingDirection), Color.blue, 0.001f);
+
+            if (Physics2D.Raycast(rayStart, Vector2.right * Mathf.Sign(facingDirection), 0.1f).collider != null)
+            {
+                isTouchingWall = true;
+                return;
+            }
+        }
+    }
 
     private void UpdateFacingDirection()
     {

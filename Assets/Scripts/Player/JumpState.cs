@@ -3,10 +3,7 @@ using UnityEngine;
 public class JumpState : PlayerBaseState
 {
     public JumpState(PlayerStateMachine context, PlayerStateFactory factory)
-        : base(context, factory)
-    {
-        isRootState = true;
-    }
+        : base(context, factory) => isRootState = true;
 
     public override void EnterState()
     {
@@ -15,10 +12,8 @@ public class JumpState : PlayerBaseState
     }
 
     public override void UpdateState() => CheckSwitchStates();
-    public override void ExitState()
-    {
-        if (context.IsJumpPressed) context.RequireNewJumpPress = true;
-    }
+
+    public override void ExitState() { if (context.IsJumpPressed) context.RequireNewJumpPress = true; }
 
 
     public override void CheckSwitchStates()

@@ -3,10 +3,7 @@ using UnityEngine;
 public class FallState : PlayerBaseState
 {
     public FallState(PlayerStateMachine context, PlayerStateFactory factory)
-        : base(context, factory)
-    {
-        isRootState = true;
-    }
+        : base(context, factory) => isRootState = true;
 
     public override void EnterState()
     {
@@ -18,14 +15,12 @@ public class FallState : PlayerBaseState
 
     public override void ExitState() { }
 
-    public override void CheckSwitchStates()
-    {
-        if (context.IsGrounded) SwitchState(factory.Grounded());
-    }
+    public override void CheckSwitchStates() { if (context.IsGrounded) SwitchState(factory.Grounded()); }
 
     public override void InitSubState()
     {
-        if (!context.IsMovementPressed) SetSubState(factory.Idle());
+        if (context.IsTouchingWall) SetSubState(factory.WallSlide());
+        else if (!context.IsMovementPressed) SetSubState(factory.Idle());
         else SetSubState(factory.Run());
     }
 }

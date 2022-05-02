@@ -14,6 +14,6 @@ public class TempUILogState : MonoBehaviour
         string state = psm.CurrentState.Name();
         text.text = state;
 
-        Debug.Log(state);
+        // Debug.Log(state);
     }
 }

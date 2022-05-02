@@ -3,20 +3,11 @@ using UnityEngine;
 public class RiseState : PlayerBaseState
 {
     public RiseState(PlayerStateMachine context, PlayerStateFactory factory)
-        : base(context, factory)
-    {
-        isRootState = true;
-    }
+        : base(context, factory) => isRootState = true;
 
-    public override void EnterState()
-    {
-        InitSubState();
-    }
+    public override void EnterState() => InitSubState();
 
-    public override void UpdateState()
-    {
-        CheckSwitchStates();
-    }
+    public override void UpdateState() => CheckSwitchStates();
 
     public override void ExitState() { }
 
