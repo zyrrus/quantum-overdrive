@@ -25,7 +25,14 @@ public abstract class PlayerBaseState
             currentSubState.UpdateState();
     }
 
-    public void ExitStates()
+    private void EnterStates()
+    {
+        EnterState();
+        if (currentSubState != null)
+            currentSubState.EnterState();
+    }
+
+    private void ExitStates()
     {
         ExitState();
         if (currentSubState != null)
@@ -35,13 +42,17 @@ public abstract class PlayerBaseState
     protected void SwitchState(PlayerBaseState newState)
     {
         ExitStates();
-        newState.EnterState();
+        newState.EnterStates();
 
         if (isRootState)
             context.CurrentState = newState;
         else if (currentSuperState != null)
             currentSuperState.SetSubState(newState);
+    }
 
+    protected void SwitchSuperState(PlayerBaseState newSuperState)
+    {
+        currentSuperState.SwitchState(newSuperState);
     }
 
     protected void SetSuperState(PlayerBaseState newSuperState)
@@ -53,6 +64,7 @@ public abstract class PlayerBaseState
     {
         currentSubState = newSubState;
         newSubState.SetSuperState(this);
+        // newSubState.EnterStates();
     }
 
     public string Name()

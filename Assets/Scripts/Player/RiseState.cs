@@ -19,7 +19,8 @@ public class RiseState : PlayerBaseState
 
     public override void InitSubState()
     {
-        if (context.IsDashPressed) SetSubState(factory.Dash());
+        if (context.IsDashing || (context.IsDashPressed && !context.RequireNewDashPress && context.DashCooldownTimer.isOver))
+            SetSubState(factory.Dash());
         else if (!context.IsMovementPressed) SetSubState(factory.Idle());
         else SetSubState(factory.Run());
     }

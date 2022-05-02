@@ -15,12 +15,15 @@ public class FallState : PlayerBaseState
 
     public override void ExitState() { }
 
-    public override void CheckSwitchStates() { if (context.IsGrounded) SwitchState(factory.Grounded()); }
+    public override void CheckSwitchStates()
+    {
+        if (context.IsGrounded) SwitchState(factory.Grounded());
+        else if (context.IsDashPressed) SwitchState(factory.Rise());
+    }
 
     public override void InitSubState()
     {
-        if (context.IsTouchingWall) SetSubState(factory.WallSlide());
-        else if (!context.IsMovementPressed) SetSubState(factory.Idle());
+        if (!context.IsMovementPressed) SetSubState(factory.Idle());
         else SetSubState(factory.Run());
     }
 }

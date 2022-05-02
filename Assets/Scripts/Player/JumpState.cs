@@ -30,18 +30,15 @@ public class JumpState : PlayerBaseState
 
     private void HandleJump()
     {
+        Debug.Log("JUMPING");
+
         context.IsJumping = true;
 
-        Vector2 vel = context.Rb.velocity;
-        vel.y = 0;
-        context.Rb.velocity = vel;
+        context.KillYVelocity();
 
         float maxJumpForce = context.JumpForce * context.JumpForceBonus;
 
-        float slope = (context.JumpForce - maxJumpForce) / (context.SoftMaxSpeed - context.BonusMaxSpeed);
-        float jumpScale = slope * (context.Rb.velocity.x - context.SoftMaxSpeed) + context.JumpForce;
-
-        float scaledJumpForce = Mathf.Clamp(jumpScale, context.JumpForce, maxJumpForce);
+        float scaledJumpForce = (context.Rb.velocity.x > context.BonusMaxSpeed) ? maxJumpForce : context.JumpForce;
 
         context.Rb.AddForce(Vector2.up * scaledJumpForce, ForceMode2D.Impulse);
     }

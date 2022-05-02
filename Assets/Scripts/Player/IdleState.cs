@@ -10,11 +10,7 @@ public class IdleState : PlayerBaseState
     public override void UpdateState()
     {
         if (context.Rb.velocity.magnitude > 0)
-        {
-            Vector2 vel = context.Rb.velocity;
-            vel.x = Mathf.MoveTowards(vel.x, 0, context.StoppingSpeed * Time.deltaTime);
-            context.Rb.velocity = vel;
-        }
+            context.ReduceXVelocity(context.StoppingSpeed * Time.deltaTime);
         CheckSwitchStates();
     }
 

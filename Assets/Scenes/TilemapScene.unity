@@ -152,7 +152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 210063612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.9, y: 6.8, z: 0}
+  m_LocalPosition: {x: 11.7, y: 12.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 862426183}
@@ -181,14 +181,16 @@ MonoBehaviour:
   jumpForceBonus: 10
   dashForce: 15
   dashRecoilForce: 0
-  dashEffectiveTime: 0.5
+  dashEffectiveTime: 1
   dashCooldownTime: 3
+  wallSlideGravityScale: 0
   isGrounded: 0
   isFalling: 0
   isJumping: 0
   isDashing: 0
   requireNewJumpPress: 0
   requireNewDashPress: 0
+  isTouchingWall: 0
   facingDirection: 1
 --- !u!114 &210063615
 MonoBehaviour:
@@ -246,9 +248,9 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: cab63fa0ed72da94b8268ffc5a13f343, type: 2}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_Interpolate: 1
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &210063621
 MonoBehaviour:

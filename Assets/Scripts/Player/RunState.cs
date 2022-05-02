@@ -16,7 +16,8 @@ public class RunState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (context.IsDashPressed && !context.RequireNewDashPress && context.DashCooldownTimer.isOver)
+        if (context.IsFalling && context.IsTouchingWall) SwitchState(factory.WallSlide());
+        else if (context.IsDashPressed && !context.RequireNewDashPress && context.DashCooldownTimer.isOver)
             SwitchState(factory.Dash());
         else if (!context.IsMovementPressed) SwitchState(factory.Idle());
     }
@@ -29,15 +30,11 @@ public class RunState : PlayerBaseState
 
         // Stop player if changing direction
         if (curXVel * context.MovementInput < 0)
-        {
-            Vector2 vel = context.Rb.velocity;
-            vel.x = Mathf.MoveTowards(vel.x, 0, context.StoppingSpeed * Time.deltaTime);
-            context.Rb.velocity = vel;
-        }
+            context.ReduceXVelocity(context.StoppingSpeed * Time.deltaTime);
 
         // Apply acceleration if slower than MaxSpeed
         if (Mathf.Abs(curXVel) < context.SoftMaxSpeed)
             context.Rb.AddForce(Vector2.right * context.Acceleration * context.MovementInput * Time.deltaTime);
-        else Debug.Log("Top speed reached");
+        // else Debug.Log("Top speed reached");
     }
 }

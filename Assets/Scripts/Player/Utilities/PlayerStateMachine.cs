@@ -219,6 +219,8 @@ public class PlayerStateMachine : MonoBehaviour
                 return;
             }
         }
+
+        isTouchingWall = false;
     }
 
     private void UpdateFacingDirection()
@@ -264,5 +266,36 @@ public class PlayerStateMachine : MonoBehaviour
     {
         isJumpPressed = context.ReadValueAsButton();
         requireNewJumpPress = false;
+    }
+
+
+    /* Utilites */
+
+    public void KillXVelocity()
+    {
+        Vector2 vel = rb.velocity;
+        vel.x = 0;
+        rb.velocity = vel;
+    }
+
+    public void KillYVelocity()
+    {
+        Vector2 vel = rb.velocity;
+        vel.y = 0f;
+        rb.velocity = vel;
+    }
+
+    public void ReduceXVelocity(float factor)
+    {
+        Vector2 vel = rb.velocity;
+        vel.x = Mathf.MoveTowards(vel.x, 0, factor);
+        rb.velocity = vel;
+    }
+
+    public void ReduceYVelocity(float factor)
+    {
+        Vector2 vel = rb.velocity;
+        vel.y = Mathf.MoveTowards(vel.y, 0, factor);
+        rb.velocity = vel;
     }
 }
