@@ -7,10 +7,12 @@ public class DashState : PlayerBaseState
 
     public override void EnterState()
     {
-        context.IsDashing = true;
-        context.DashEffectiveTimer.Reset();
-        context.DashCooldownTimer.Reset();
-        HandleDash();
+        if (context.DashEffectiveTimer.isOver && context.DashCooldownTimer.isOver) {
+            context.IsDashing = true;
+            context.DashEffectiveTimer.Reset();
+            context.DashCooldownTimer.Reset();
+            HandleDash();
+        }
     }
 
     public override void UpdateState()
@@ -22,7 +24,7 @@ public class DashState : PlayerBaseState
 
     public override void ExitState()
     {
-        context.IsDashing = false;
+        if (context.DashEffectiveTimer.isOver) context.IsDashing = false;
         if (context.IsDashPressed) context.RequireNewDashPress = true;
     }
 
