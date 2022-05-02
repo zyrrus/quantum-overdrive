@@ -783,7 +783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gmPrefab: {fileID: 5009972421946743322, guid: 89d0cac42d685844da7afc42741caadd, type: 3}
-  tutorialScene: LevelTestScene 1
+  tutorialScene: 01 - Movement Tutorial
 --- !u!1001 &2107731048
 PrefabInstance:
   m_ObjectHideFlags: 0
