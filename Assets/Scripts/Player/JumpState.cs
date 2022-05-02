@@ -30,8 +30,6 @@ public class JumpState : PlayerBaseState
 
     private void HandleJump()
     {
-        Debug.Log("JUMPING");
-
         context.IsJumping = true;
 
         context.KillYVelocity();

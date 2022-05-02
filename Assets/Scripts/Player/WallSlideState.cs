@@ -5,16 +5,21 @@ public class WallSlideState : PlayerBaseState
     public WallSlideState(PlayerStateMachine context, PlayerStateFactory factory)
         : base(context, factory) { }
 
-    public override void EnterState() { }
+    public override void EnterState()
+    {
+        context.KillYVelocity();
+        context.Rb.gravityScale = context.WallSlideGravityScale;
+    }
 
     public override void UpdateState()
     {
-        context.KillYVelocity();
         CheckSwitchStates();
     }
 
     public override void ExitState()
     {
+        context.Rb.gravityScale = context.OriginalGravityScale;
+
         if (context.IsJumping || (context.IsJumpPressed && !context.RequireNewJumpPress))
             JumpAwayFromWall();
     }

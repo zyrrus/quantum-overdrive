@@ -22,21 +22,21 @@ public abstract class PlayerBaseState
     {
         UpdateState();
         if (currentSubState != null)
-            currentSubState.UpdateState();
+            currentSubState.UpdateStates();
     }
 
     private void EnterStates()
     {
         EnterState();
         if (currentSubState != null)
-            currentSubState.EnterState();
+            currentSubState.EnterStates();
     }
 
     private void ExitStates()
     {
         ExitState();
         if (currentSubState != null)
-            currentSubState.ExitState();
+            currentSubState.ExitStates();
     }
 
     protected void SwitchState(PlayerBaseState newState)

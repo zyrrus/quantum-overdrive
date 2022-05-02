@@ -183,7 +183,7 @@ MonoBehaviour:
   dashRecoilForce: 0
   dashEffectiveTime: 1
   dashCooldownTime: 3
-  wallSlideGravityScale: 0
+  wallSlideGravityScale: 0.05
   isGrounded: 0
   isFalling: 0
   isJumping: 0

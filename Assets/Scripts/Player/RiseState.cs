@@ -13,7 +13,7 @@ public class RiseState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (context.IsGrounded) SwitchState(factory.Grounded());
+        if (context.IsGrounded && !context.IsDashing) SwitchState(factory.Grounded());
         else if (context.IsFalling) SwitchState(factory.Fall());
     }
 
