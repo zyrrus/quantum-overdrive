@@ -7,10 +7,12 @@ public class Respawn : MonoBehaviour
     [SerializeField] private Transform respawnPoint;
     private GameObject player;
     private PlayerStateMachine psm;
+    private LevelManager lm;
 
     private void Start() {
         player = gameObject;
         psm = player.GetComponent<PlayerStateMachine>();
+        lm = FindObjectOfType<LevelManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -24,9 +26,13 @@ public class Respawn : MonoBehaviour
         }
         else if (other.tag == "Obstacle") {
             if (other.gameObject.GetComponent<ObstacleBase>().isDeadly) {
+                // Move player to respawn point
                 psm.KillXVelocity();
                 psm.KillYVelocity();
                 player.transform.position = respawnPoint.position;
+
+                // Reset level obstacles
+                lm.ResetLevel();
             }
         }
     }
