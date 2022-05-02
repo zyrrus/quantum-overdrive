@@ -12,9 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 99a1f55c011f8a049a428824f638ef4e
   - enabled: 1
-    path: Assets/Scenes/LevelTestScene 1.unity
-    guid: 13e3e5cbb572a324987a7700ced2ba51
-  - enabled: 1
     path: Assets/Scenes/ScoreScreen.unity
     guid: 6ec043d6a8284104dbd830d38681297d
+  - enabled: 1
+    path: Assets/Scenes/Levels/01 - Movement Tutorial.unity
+    guid: 9e436026c7228114bb609b39cb74a20e
+  - enabled: 1
+    path: Assets/Scenes/LevelTestScene 1.unity
+    guid: 13e3e5cbb572a324987a7700ced2ba51
   m_configObjects: {}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
+    [SerializeField] private Sprite activatedSprite;
     [SerializeField] private CheckPoint prev;
     public bool isNew { get; private set; } = true;
 
@@ -12,5 +13,6 @@ public class CheckPoint : MonoBehaviour
         if (prev != null) prev.DisableCheckPoint();
         isNew = false;
         // TODO: Sprite change
+        gameObject.GetComponent<SpriteRenderer>().sprite = activatedSprite;
     }
 }
