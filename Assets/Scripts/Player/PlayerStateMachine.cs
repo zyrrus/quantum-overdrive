@@ -10,6 +10,7 @@ public class PlayerStateMachine : MonoBehaviour
     private BoxCollider2D playerCollider;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform respawnPoint;
     // rotation parent
     // animator
 
@@ -40,7 +41,7 @@ public class PlayerStateMachine : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float softMaxSpeed; // Player can naturally run up to this speed
     [SerializeField] private float bonusMaxSpeed; // Player will get bonuses when they reach this speed (higher than simple)
-    [SerializeField] private float acceleration; // NOTE: not implemented
+    [SerializeField] private float acceleration;
     [SerializeField] private float stoppingSpeed;
 
     [Header("Jump")]
@@ -57,23 +58,23 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private float wallSlideGravityScale;
 
 
-
     /* Flags */
 
-    [SerializeField] private bool isGrounded;
-    [SerializeField] private bool isFalling;
-    [SerializeField] private bool isJumping;
-    [SerializeField] private bool isDashing;
-    [SerializeField] private bool requireNewJumpPress;
-    [SerializeField] private bool requireNewDashPress;
-    [SerializeField] private bool isTouchingWall;
-    [SerializeField] private float facingDirection = 1;
+    private bool isGrounded;
+    private bool isFalling;
+    private bool isJumping;
+    private bool isDashing;
+    private bool requireNewJumpPress;
+    private bool requireNewDashPress;
+    private bool isTouchingWall;
+    private float facingDirection = 1;
 
 
     /* Getters + Setters */
 
     // References
     public Rigidbody2D Rb { get => rb; }
+    public Transform RespawnPoint { get => respawnPoint; }
 
     // Inputs
     public float MovementInput { get => currentMovementInput; }
@@ -176,6 +177,20 @@ public class PlayerStateMachine : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + dashInput3);
     }
 
+    public void Die()
+    {
+        // Reset everything
+        isGrounded = false;
+        isFalling = false;
+        isJumping = false;
+        isDashing = false;
+        requireNewJumpPress = false;
+        requireNewDashPress = false;
+        isTouchingWall = false;
+
+        // Move to respawn point
+        transform.position = respawnPoint.position;
+    }
 
     /* Flag utilities */
 
@@ -239,6 +254,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         if (dashEffectiveTimer.isOver) isDashing = false;
     }
+
 
     /* Input handlers */
 

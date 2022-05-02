@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NewObstacleBase : MonoBehaviour
+public class ObstacleBase : MonoBehaviour
 {
     // Keep this one and delete the other, but see what depends on the other one first
 
@@ -16,7 +16,7 @@ public class NewObstacleBase : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            PlayerCollision pc = other.gameObject.GetComponent<PlayerCollision>();
+            EnemyCollision pc = other.gameObject.GetComponent<EnemyCollision>();
             pc.OnHitPlayer(transform.position, true);
         }
     }

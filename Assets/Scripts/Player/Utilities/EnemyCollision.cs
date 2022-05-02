@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerCollision : MonoBehaviour
+public class EnemyCollision : MonoBehaviour
 {
     private PlayerStateMachine psm;
 
@@ -8,7 +8,6 @@ public class PlayerCollision : MonoBehaviour
 
     public void OnHitPlayer(Vector2 obstaclePos, bool isObstacleBouncy)
     {
-        Debug.Log("Player and Obstacle collision");
         if (isObstacleBouncy && psm.IsDashing)
             LaunchPlayer(obstaclePos);
         else KillPlayer();
@@ -18,10 +17,15 @@ public class PlayerCollision : MonoBehaviour
     {
         Debug.Log("LAUNCH");
 
+        // Might need to set a 'beingLaunched' flag in psm
+
         Vector2 oldVel = psm.Rb.velocity;
         psm.Rb.velocity = new Vector2();
 
-        psm.Rb.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+        Vector2 launchDirection = new Vector2(transform.position.x, transform.position.y) - obstaclePos;
+        launchDirection.Normalize();
+
+        psm.Rb.AddForce(launchDirection * 10, ForceMode2D.Impulse);
     }
-    private void KillPlayer() { Debug.Log("DEAD"); }
+    private void KillPlayer() { Debug.Log("DEAD"); psm.Die(); }
 }

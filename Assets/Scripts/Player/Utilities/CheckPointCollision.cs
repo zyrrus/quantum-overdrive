@@ -2,19 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Respawn : MonoBehaviour
+public class CheckPointCollision : MonoBehaviour
 {
-    [SerializeField] private Transform respawnPoint;
-    private GameObject player;
     private PlayerStateMachine psm;
-    private LevelManager lm;
 
-    private void Start()
-    {
-        player = gameObject;
-        psm = player.GetComponent<PlayerStateMachine>();
-        lm = FindObjectOfType<LevelManager>();
-    }
+    private void Awake() => psm = GetComponent<PlayerStateMachine>();
+
+    private void MoveRespawnTo(Vector3 newPos) => psm.RespawnPoint.position = newPos;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -24,7 +18,7 @@ public class Respawn : MonoBehaviour
             CheckPoint point = other.gameObject.GetComponent<CheckPoint>();
             if (point.isNew)
             {
-                respawnPoint.position = other.gameObject.transform.position;
+                MoveRespawnTo(other.gameObject.transform.position);
                 point.DisableCheckPoint();
             }
         }
