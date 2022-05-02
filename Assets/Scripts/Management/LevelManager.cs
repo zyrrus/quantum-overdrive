@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     private GameManager gm;
 
     // Level specific variables
+    [SerializeField] private string nextLevel;
     [SerializeField] private ParTime parTimeStruct;
     private float parTime;
 
@@ -65,7 +66,7 @@ public class LevelManager : MonoBehaviour
 
     public void ExitLevel() {
         levelTime.Stop();
-        gm.ToScoreScreen(levelTime.GetTime(), parTime);
+        gm.ToScoreScreen(levelTime.GetTime(), parTime, nextLevel);
     }
 
     public void ResetLevel() {
