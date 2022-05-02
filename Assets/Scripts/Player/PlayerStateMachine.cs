@@ -54,6 +54,7 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private float dashRecoilForce;
     [SerializeField] private float dashEffectiveTime;
     [SerializeField] private float dashCooldownTime;
+    [SerializeField] private float bounceForce;
 
     [Header("Wall Slide")]
     [SerializeField] private float wallSlideGravityScale;
@@ -65,6 +66,7 @@ public class PlayerStateMachine : MonoBehaviour
     private bool isFalling;
     private bool isJumping;
     private bool isDashing;
+    private bool isLaunched;
     private bool requireNewJumpPress;
     private bool requireNewDashPress;
     private bool isTouchingWall;
@@ -100,6 +102,7 @@ public class PlayerStateMachine : MonoBehaviour
     public float JumpForceBonus { get => jumpForceBonus; }
     public float DashForce { get => dashForce; }
     public float DashRecoilForce { get => dashRecoilForce; }
+    public float BounceForce { get => bounceForce; }
     public float WallSlideGravityScale { get => wallSlideGravityScale; }
 
     // Flags
@@ -107,6 +110,7 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsFalling { get => isFalling; }
     public bool IsJumping { get => isJumping; set => isJumping = value; }
     public bool IsDashing { get => isDashing; set => isDashing = value; }
+    public bool IsLaunched { get => isLaunched; set => isLaunched = value; }
     public bool RequireNewJumpPress { get => requireNewJumpPress; set => requireNewJumpPress = value; }
     public bool RequireNewDashPress { get => requireNewDashPress; set => requireNewDashPress = value; }
     public bool IsTouchingWall { get => isTouchingWall; }
@@ -165,6 +169,7 @@ public class PlayerStateMachine : MonoBehaviour
         UpdateIsDashing();
         UpdateIsTouchingWall();
         UpdateFacingDirection();
+        isLaunched = false;
 
         // Update timers
         if (!dashEffectiveTimer.isOver) dashEffectiveTimer.Tick();
@@ -186,15 +191,16 @@ public class PlayerStateMachine : MonoBehaviour
         isFalling = false;
         isJumping = false;
         isDashing = false;
+        isLaunched = false;
         requireNewJumpPress = false;
         requireNewDashPress = false;
         isTouchingWall = false;
 
-        // Reset level
-        lm.ResetLevel();
-
         // Move to respawn point
         transform.position = respawnPoint.position;
+
+        // Reset level
+        lm.ResetLevel();
     }
 
     /* Flag utilities */
