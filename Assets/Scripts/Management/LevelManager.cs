@@ -71,6 +71,7 @@ public class LevelManager : MonoBehaviour
 
     public void ResetLevel() {
         foreach (ObstacleBase obj in allObstacles) {
+            obj.gameObject.SetActive(true);
             obj.ResetObstacle();
         }
     }
