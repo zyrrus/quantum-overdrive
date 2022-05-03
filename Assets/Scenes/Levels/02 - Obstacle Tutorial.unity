@@ -6260,7 +6260,7 @@ PrefabInstance:
       objectReference: {fileID: 945966825}
     - target: {fileID: 1978578219296671272, guid: 9d931f8610c026146bbd9f97f707d281, type: 3}
       propertyPath: nextLevel
-      value: LevelTestScene 1
+      value: 03 - Hallways
       objectReference: {fileID: 0}
     - target: {fileID: 1978578219296671272, guid: 9d931f8610c026146bbd9f97f707d281, type: 3}
       propertyPath: startDoor
