@@ -346,6 +346,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   respawnPoint: {fileID: 5507485048033200555}
+  flipRoot: {fileID: 0}
+  animator: {fileID: 0}
   softMaxSpeed: 10
   bonusMaxSpeed: 18
   acceleration: 500
@@ -356,6 +358,7 @@ MonoBehaviour:
   dashRecoilForce: 0
   dashEffectiveTime: 1
   dashCooldownTime: 1
+  bounceForce: 10
   wallSlideGravityScale: 0.05
 --- !u!114 &8913148494832422667
 MonoBehaviour:

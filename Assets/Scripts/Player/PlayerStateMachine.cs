@@ -12,8 +12,8 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform respawnPoint;
     private LevelManager lm;
-    // rotation parent
-    // animator
+    [SerializeField] private Transform flipRoot;
+    [SerializeField] private Animator animator;
 
 
     /* Inputs */
@@ -78,6 +78,7 @@ public class PlayerStateMachine : MonoBehaviour
     // References
     public Rigidbody2D Rb { get => rb; }
     public Transform RespawnPoint { get => respawnPoint; }
+    public Animator Animator { get => animator; }
 
     // Inputs
     public float MovementInput { get => currentMovementInput; }
@@ -171,10 +172,12 @@ public class PlayerStateMachine : MonoBehaviour
         UpdateFacingDirection();
         isLaunched = false;
 
+
         // Update timers
         if (!dashEffectiveTimer.isOver) dashEffectiveTimer.Tick();
         if (!dashCooldownTimer.isOver) dashCooldownTimer.Tick();
 
+        Flip();
         currentState.UpdateStates();
     }
 
@@ -201,6 +204,13 @@ public class PlayerStateMachine : MonoBehaviour
 
         // Reset level
         lm.ResetLevel();
+    }
+
+    private void Flip()
+    {
+        Vector3 scale = flipRoot.localScale;
+        scale.x = facingDirection;
+        flipRoot.localScale = scale;
     }
 
     /* Flag utilities */
