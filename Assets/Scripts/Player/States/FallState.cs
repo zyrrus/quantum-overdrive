@@ -9,11 +9,15 @@ public class FallState : PlayerBaseState
     {
         InitSubState();
         context.IsJumping = false;
+        context.Animator.SetBool("Falling", true);
     }
 
     public override void UpdateState() => CheckSwitchStates();
 
-    public override void ExitState() { }
+    public override void ExitState()
+    {
+        context.Animator.SetBool("Falling", false);
+    }
 
     public override void CheckSwitchStates()
     {

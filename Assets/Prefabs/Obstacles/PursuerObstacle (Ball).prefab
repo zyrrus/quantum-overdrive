@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5829246689080000201}
   - component: {fileID: 5829246689080000203}
   m_Layer: 2
-  m_Name: PursuerObstacle
+  m_Name: PursuerObstacle (Ball)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
