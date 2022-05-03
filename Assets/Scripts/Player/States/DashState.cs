@@ -7,10 +7,12 @@ public class DashState : PlayerBaseState
 
     public override void EnterState()
     {
-        if (context.DashEffectiveTimer.isOver && context.DashCooldownTimer.isOver) {
+        if (context.DashEffectiveTimer.isOver && context.DashCooldownTimer.isOver)
+        {
             context.IsDashing = true;
             context.DashEffectiveTimer.Reset();
             context.DashCooldownTimer.Reset();
+            context.Animator.SetBool("Dash", true);
             HandleDash();
         }
     }
@@ -26,6 +28,7 @@ public class DashState : PlayerBaseState
     {
         if (context.DashEffectiveTimer.isOver) context.IsDashing = false;
         if (context.IsDashPressed) context.RequireNewDashPress = true;
+        context.Animator.SetBool("Dash", false);
     }
 
     public override void CheckSwitchStates()

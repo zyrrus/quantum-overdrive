@@ -1,28 +1,34 @@
 fileFormatVersion: 2
-guid: f6d52236a7f24b6419c4bb2ee6827960
+guid: 6bed218e78f94b74fbf72e3baaab4d3e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6039278176655567907
-    second: static-sheet(1044x116)_0
+      213: -5537277657223485106
+    second: tile-electric_0
   - first:
-      213: -8971270482759476320
-    second: static-sheet(1044x116)_1
+      213: 7937472946073140942
+    second: tile-electric_1
   - first:
-      213: -3928681109320532213
-    second: static-sheet(1044x116)_2
+      213: 8056580635137573313
+    second: tile-electric_2
   - first:
-      213: 4817855017382224381
-    second: static-sheet(1044x116)_3
+      213: -7240876303418819147
+    second: tile-electric_3
   - first:
-      213: 1200296673306915909
-    second: static-sheet(1044x116)_4
+      213: 1669748588525628262
+    second: tile-electric_4
   - first:
-      213: -3954990744504041300
-    second: static-sheet(1044x116)_6
+      213: 8712743978434670846
+    second: tile-electric_6
   - first:
-      213: -7743198651835706531
-    second: static-sheet(1044x116)_7
+      213: 777033025736290273
+    second: tile-electric_7
+  - first:
+      213: 2637524024669876249
+    second: tile-electric_8
+  - first:
+      213: -1454623787730300852
+    second: tile-electric_9
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -67,7 +73,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 60
+  spritePixelsToUnits: 30
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -89,7 +95,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -101,7 +107,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -112,148 +118,190 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: static-sheet(1044x116)_0
+      name: tile-electric_0
       rect:
         serializedVersion: 2
-        x: 32
-        y: 28
-        width: 62
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 32ce2531183dfc350800000000000000
-      internalID: 6039278176655567907
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: static-sheet(1044x116)_1
-      rect:
-        serializedVersion: 2
-        x: 156
-        y: 28
-        width: 62
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0ab9c2b1705af7380800000000000000
-      internalID: -8971270482759476320
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: static-sheet(1044x116)_2
-      rect:
-        serializedVersion: 2
-        x: 274
-        y: 26
-        width: 62
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b0f792b98558a79c0800000000000000
-      internalID: -3928681109320532213
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: static-sheet(1044x116)_3
-      rect:
-        serializedVersion: 2
-        x: 394
-        y: 28
+        x: 4
+        y: 4
         width: 64
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 7
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df1a66abc957cd240800000000000000
-      internalID: 4817855017382224381
+      spriteID: e49ac7afe43a723b0800000000000000
+      internalID: -5537277657223485106
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: static-sheet(1044x116)_4
+      name: tile-electric_1
       rect:
         serializedVersion: 2
-        x: 510
-        y: 28
-        width: 70
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 74
+        y: 4
+        width: 64
+        height: 7
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 544ba85077f48a010800000000000000
-      internalID: 1200296673306915909
+      spriteID: ece76f40791972e60800000000000000
+      internalID: 7937472946073140942
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: static-sheet(1044x116)_6
+      name: tile-electric_2
       rect:
         serializedVersion: 2
-        x: 621
-        y: 20
-        width: 81
-        height: 79
-      alignment: 9
-      pivot: {x: 0.56706256, y: 0.3885716}
+        x: 142
+        y: 4
+        width: 64
+        height: 7
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca001ef4fdc0d19c0800000000000000
-      internalID: -3954990744504041300
+      spriteID: 1c18aade669becf60800000000000000
+      internalID: 8056580635137573313
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: static-sheet(1044x116)_7
+      name: tile-electric_3
       rect:
         serializedVersion: 2
-        x: 736
-        y: 20
-        width: 105
-        height: 83
-      alignment: 9
-      pivot: {x: 0.44658434, y: 0.42179894}
+        x: 212
+        y: 4
+        width: 64
+        height: 7
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d539c04f9d1aa8490800000000000000
-      internalID: -7743198651835706531
+      spriteID: 5bd7d28ad5d338b90800000000000000
+      internalID: -7240876303418819147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tile-electric_4
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 4
+        width: 64
+        height: 7
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66ba74b9e732c2710800000000000000
+      internalID: 1669748588525628262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tile-electric_6
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 3
+        width: 64
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef0b58d7c72e9e870800000000000000
+      internalID: 8712743978434670846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tile-electric_7
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 3
+        width: 64
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ef22c58b6398ca00800000000000000
+      internalID: 777033025736290273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tile-electric_8
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 3
+        width: 64
+        height: 7
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 910b101502e5a9420800000000000000
+      internalID: 2637524024669876249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tile-electric_9
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 3
+        width: 64
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c40908a3f5320dbe0800000000000000
+      internalID: -1454623787730300852
       vertices: []
       indices: 
       edges: []

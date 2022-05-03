@@ -5,14 +5,20 @@ public class RunState : PlayerBaseState
     public RunState(PlayerStateMachine context, PlayerStateFactory factory)
         : base(context, factory) { }
 
-    public override void EnterState() { }
+    public override void EnterState()
+    {
+        context.Animator.SetBool("Run", true);
+    }
 
     public override void UpdateState()
     {
         HandleRun();
         CheckSwitchStates();
     }
-    public override void ExitState() { }
+    public override void ExitState()
+    {
+        context.Animator.SetBool("Run", false);
+    }
 
     public override void CheckSwitchStates()
     {

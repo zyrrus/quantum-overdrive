@@ -8,11 +8,15 @@ public class GroundedState : PlayerBaseState
     public override void EnterState()
     {
         InitSubState();
+        context.Animator.SetBool("Grounded", true);
     }
 
     public override void UpdateState() => CheckSwitchStates();
 
-    public override void ExitState() { }
+    public override void ExitState()
+    {
+        context.Animator.SetBool("Grounded", false);
+    }
 
     public override void CheckSwitchStates()
     {

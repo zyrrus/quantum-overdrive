@@ -9,6 +9,7 @@ public class WallSlideState : PlayerBaseState
     {
         context.KillYVelocity();
         context.Rb.gravityScale = context.WallSlideGravityScale;
+        context.Animator.SetBool("Wall", true);
     }
 
     public override void UpdateState()
@@ -19,6 +20,7 @@ public class WallSlideState : PlayerBaseState
     public override void ExitState()
     {
         context.Rb.gravityScale = context.OriginalGravityScale;
+        context.Animator.SetBool("Wall", false);
 
         if (context.IsJumping || (context.IsJumpPressed && !context.RequireNewJumpPress))
             JumpAwayFromWall();

@@ -8,12 +8,17 @@ public class JumpState : PlayerBaseState
     public override void EnterState()
     {
         InitSubState();
+        context.Animator.SetBool("Jump", true);
         HandleJump();
     }
 
     public override void UpdateState() => CheckSwitchStates();
 
-    public override void ExitState() { if (context.IsJumpPressed) context.RequireNewJumpPress = true; }
+    public override void ExitState()
+    {
+        if (context.IsJumpPressed) context.RequireNewJumpPress = true;
+        context.Animator.SetBool("Jump", false);
+    }
 
 
     public override void CheckSwitchStates()
