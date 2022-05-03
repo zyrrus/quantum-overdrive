@@ -51,7 +51,7 @@ MonoBehaviour:
   parTimeStruct:
     min: 0
     sec: 0
-  startTime: 2
+  startTime: 1.2
 --- !u!1 &6617153236356133500
 GameObject:
   m_ObjectHideFlags: 0
