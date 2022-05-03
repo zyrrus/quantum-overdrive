@@ -8,7 +8,7 @@ public class ObstacleBase : MonoBehaviour
 
     [SerializeField] private bool isBouncy;
     [SerializeField] private bool isDeadly;
-    [SerializeField] private bool isHit;
+    private bool isHit;
 
     public bool IsBouncy { get => isBouncy; private set { isBouncy = value; } }
     public bool IsDeadly { get => isDeadly; private set { isDeadly = value; } }
