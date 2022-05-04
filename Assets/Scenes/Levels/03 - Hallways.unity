@@ -22978,8 +22978,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1567273600}
     - target: {fileID: 1978578219296671272, guid: 9d931f8610c026146bbd9f97f707d281, type: 3}
+      propertyPath: parTimeStruct.min
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1978578219296671272, guid: 9d931f8610c026146bbd9f97f707d281, type: 3}
       propertyPath: parTimeStruct.sec
-      value: 45
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1978578219296671272, guid: 9d931f8610c026146bbd9f97f707d281, type: 3}
       propertyPath: extraObstacles.Array.size

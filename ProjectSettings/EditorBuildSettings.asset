@@ -25,5 +25,11 @@ EditorBuildSettings:
     guid: d193b1a6d59a3bd4998869fbef62e3a8
   - enabled: 1
     path: Assets/Scenes/Levels/04 - Towers.unity
-    guid: 68b6f8a9ac71ba544b801e3b9794eeae
+    guid: 5acf2b56f3f27184898cd16899a3272c
+  - enabled: 1
+    path: Assets/Scenes/Demo End.unity
+    guid: 349234bfa7e924c76b7c6b2b36b5e6f3
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

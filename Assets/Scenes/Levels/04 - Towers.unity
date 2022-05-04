@@ -9288,7 +9288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1978578219296671272, guid: 9d931f8610c026146bbd9f97f707d281, type: 3}
       propertyPath: parTimeStruct.sec
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1978578219296671272, guid: 9d931f8610c026146bbd9f97f707d281, type: 3}
       propertyPath: extraObstacles.Array.size
